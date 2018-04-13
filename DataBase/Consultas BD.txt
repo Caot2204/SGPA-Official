@@ -1,0 +1,61 @@
+// Usuarios
+
+CREATE TABLE usuario (Id int NOT NULL, Nombre varchar(100) NOT NULL, Grado_Estudios varchar(150), Rol enum('docente','coordinador','coordinadora_general') NOT NULL, PRIMARY KEY(Id));
+
+
+
+// Programa Educativo (falta ver como ponerle el horario al plan de curso)
+
+CREATE TABLE programa_educativo (Id varchar(10) NOT NULL, Nombre varchar(100) NOT NULL, PRIMARY KEY(Id));
+
+CREATE TABLE experiencia_educativa (Nombre varchar(100) NOT NULL);
+
+CREATE TABLE programa_educativo_experiencia_educativa (Id_Programa varchar(10), Nombre_EE varchar(100));
+
+CREATE TABLE curso (NRC int NOT NULL, Nombre_EE varchar(100), Bloque int, Seccion char, Periodo_Escolar varchar(50), Id_Docente varchar(100), PRIMARY KEY(NRC));
+
+
+
+// Calendario
+
+CREATE TABLE calendario (Nombre_Actividad varchar(100), Descripcion_Actividad varchar(500), Fecha_Actividad date, Academia varchar(50));
+
+
+
+// Plan de Trabajo de Academia
+
+CREATE TABLE plan_trabajo_academia (Id varchar(30) NOT NULL, Fecha_Aprobacion date, Programa_Educativo varchar(100), Periodo_Escolar varchar(50), Id_Academia varchar(100), Id_Coordinador varchar(100), Objetivo_General varchar(500), Estado enum('en_edicion','concluido'), PRIMARY KEY(Id));
+
+CREATE TABLE plan_trabajo_academia_objetivo_particular (Id_Plan_Academia varchar(30), Id varchar(50), Descripcion varchar(500));
+
+CREATE TABLE plan_trabajo_academia_objetivo_particular_meta (Id varchar(50), Descripcion varchar(500), Id_Objetivo_Particular varchar(50));
+
+CREATE TABLE plan_trabajo_academia_objetivo_particular_meta_actividad (Fecha_Semana varchar(50), Actividad varchar(200), Forma_Operar varchar(200), Id_Meta varchar(50));
+
+CREATE TABLE plan_trabajo_academia_examen_parcial (Id_Plan_Academia varchar(30), Numero_Parcial int NOT NULL, EE varchar(100), Tema_De_Parcial varchar(100));
+
+CREATE TABLE plan_trabajo_academia_forma_evaluacion (Id_Plan_Academia varchar(30), Elemento varchar(100), Porcentaje float);
+
+CREATE TABLE plan_trabajo_academia_historico_de_revision (Id_Plan_Academia varchar(30), No_Revision int, Fecha date, Seccion varchar(100), Descripcion varchar(200));
+
+
+
+// Plan de Curso
+
+CREATE TABLE plan_curso (Id varchar(30) NOT NULL, NRC int, Id_Docente varchar(100), Objetivo_General varchar(500), Estado enum('en_edicion','concluido'), PRIMARY KEY(Id));
+
+CREATE TABLE plan_curso_unidad_planeacion (Id_Plan_Curso varchar(30), Unidad int, Tema varchar(150), Fecha date, Tarea_Practica varchar(200), Tecnica_Didactica varchar(200));
+
+CREATE TABLE plan_curso_bibliografia (Id_Plan_Curso varchar(30), Autor varchar(100), Titulo_Libro varchar(150), Editorial varchar(100), Año int);
+
+CREATE TABLE plan_curso_calendario_evaluacion_unidad (Id_Plan_Curso varchar(30), Unidad varchar(10), Fecha date, Criterio varchar(150), Instrumento varchar(100), Porcentaje float);
+
+
+
+// Avance Programático
+
+CREATE TABLE avance_programatico (Id varchar(30) NOT NULL, NRC int, Id_Docente varchar(100), Objetivo_General varchar(500), Estado enum('en_edicion','concluido'), Id_Plan_Curso PRIMARY KEY(Id));
+
+CREATE TABLE avance_programatico_unidad_planeacion (Id_Avance_Programatico varchar(30), Unidad int, Tema_Desarrollado varchar(150), Fecha date, Tarea_Practica_Realizada varchar(200), Tecnica_Didactica varchar(200));
+
+CREATE TABLE avance_programatico_avance_unidad (Id_Avance_Programatico varchar(30), Unidad int, Porcentaje_Avance float, Observacion varchar(500));
