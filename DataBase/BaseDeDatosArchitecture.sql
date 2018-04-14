@@ -143,6 +143,29 @@ LOCK TABLES `curso` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `curso_horario`
+--
+
+DROP TABLE IF EXISTS `curso_horario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `curso_horario` (
+  `NRC` int(11) NOT NULL,
+  `Dia` varchar(20) DEFAULT NULL,
+  `Hora` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `curso_horario`
+--
+
+LOCK TABLES `curso_horario` WRITE;
+/*!40000 ALTER TABLE `curso_horario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `curso_horario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `experiencia_educativa`
 --
 
@@ -516,4 +539,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-13  0:34:04
+-- Dump completed on 2018-04-13 21:55:46

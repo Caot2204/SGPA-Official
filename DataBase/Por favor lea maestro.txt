@@ -1,0 +1,1 @@
+De todo el modelo entidad relación, solo creamos las tablas: Usuario, todo lo que incluye el Plan de Curso, Plan de Trabajo de Academia y Avance Programático; porque son las tablas que utilizarán nuestros módulos. 
