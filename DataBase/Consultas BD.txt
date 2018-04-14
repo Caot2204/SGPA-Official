@@ -4,7 +4,7 @@ CREATE TABLE usuario (Id int NOT NULL, Nombre varchar(100) NOT NULL, Grado_Estud
 
 
 
-// Programa Educativo (falta ver como ponerle el horario al plan de curso)
+// Programa Educativo
 
 CREATE TABLE programa_educativo (Id varchar(10) NOT NULL, Nombre varchar(100) NOT NULL, PRIMARY KEY(Id));
 
@@ -13,6 +13,8 @@ CREATE TABLE experiencia_educativa (Nombre varchar(100) NOT NULL);
 CREATE TABLE programa_educativo_experiencia_educativa (Id_Programa varchar(10), Nombre_EE varchar(100));
 
 CREATE TABLE curso (NRC int NOT NULL, Nombre_EE varchar(100), Bloque int, Seccion char, Periodo_Escolar varchar(50), Id_Docente varchar(100), PRIMARY KEY(NRC));
+
+CREATE TABLE curso_horario (NRC int NOT NULL, Dia varchar(20), Hora varchar(20));
 
 
 
@@ -66,7 +68,7 @@ CREATE TABLE avance_programatico_avance_unidad (Id_Avance_Programatico varchar(3
 
 //Usuarios
 
-INSERT INTO usuario (Id, Nombre, Grado_Estudios, Rol) VALUES ('1', 'Perez Arriaga Juan Carlos', 'Maestria', 1), ('2', 'Ocharan Hernandez Jorge Octavio','Doctorado', 1), ('3', 'Maria Karen Cortes Verdin', 'Doctoradao', 2), ('4', 'Maria de los Angeles Navarro', 'Maestria', 2), ('5', 'Marta Cuevas', 'Maestria', 3);
+INSERT INTO usuario (Id, Nombre, Grado_Estudios, Rol) VALUES ('1', 'Perez Arriaga Juan Carlos', 'Maestria', 1), ('2', 'Ocharan Hernandez Jorge Octavio','Doctorado', 1), ('3', 'Maria Karen Cortes Verdin', 'Doctoradado', 2), ('4', 'Maria de los Angeles Navarro', 'Maestria', 2), ('5', 'Marta Cuevas', 'Maestria', 3);
 
 
 
