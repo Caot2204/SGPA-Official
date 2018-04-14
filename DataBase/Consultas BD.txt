@@ -1,4 +1,4 @@
-// Usuarios
+﻿// Usuarios
 
 CREATE TABLE usuario (Id int NOT NULL, Nombre varchar(100) NOT NULL, Grado_Estudios varchar(150), Rol enum('docente','coordinador','coordinadora_general') NOT NULL, PRIMARY KEY(Id));
 
@@ -59,3 +59,40 @@ CREATE TABLE avance_programatico (Id varchar(30) NOT NULL, NRC int, Id_Docente v
 CREATE TABLE avance_programatico_unidad_planeacion (Id_Avance_Programatico varchar(30), Unidad int, Tema_Desarrollado varchar(150), Fecha date, Tarea_Practica_Realizada varchar(200), Tecnica_Didactica varchar(200));
 
 CREATE TABLE avance_programatico_avance_unidad (Id_Avance_Programatico varchar(30), Unidad int, Porcentaje_Avance float, Observacion varchar(500));
+
+
+
+************************************************************** REGISTROS ************************************************************************************************************************************************************************************************************************************************
+
+//Usuarios
+
+INSERT INTO usuario (Id, Nombre, Grado_Estudios, Rol) VALUES ('1', 'Perez Arriaga Juan Carlos', 'Maestria', 1), ('2', 'Ocharan Hernandez Jorge Octavio','Doctorado', 1), ('3', 'Maria Karen Cortes Verdin', 'Doctoradao', 2), ('4', 'Maria de los Angeles Navarro', 'Maestria', 2), ('5', 'Marta Cuevas', 'Maestria', 3);
+
+
+
+// Programa Educativo
+
+INSERT INTO programa_educativo (Id, Nombre) VALUES ('1', 'Ingenieria de Software'), ('2', 'Redes y Servicios de Computo'), ('3', 'Geografia'), ('4', 'Economia'), ('5', 'Estadistica');
+
+INSERT INTO experiencia_educativa (Nombre) VALUES ('Principios de Construccion de software'), ('Principios de Diseño de Software'), ('Requerimientos de sotware'), ('Redes'), ('Programacion');
+
+INSERT INTO programa_educativo_experiencia_educativa (Id_Programa, Nombre_EE) VALUES ('1', 'Principios de Construccion de Software'), ('1', 'Principios de Diseño de Software'), ('1', 'Requerimientos de Software'), ('2', 'Redes'), ('2', 'Programacion');
+
+INSERT INTO curso (NRC, Nombre_EE, Bloque, Seccion, Periodo_Escolar, Id_Docente) VALUES ('1234', 'Principios de Construccion de Software', '2', 'A', 'Feb 2018 - Jul 2018', '1'), ('1235', 'Principios de Diseño de Software', '2', 'A', 'Feb 2018 - Jul 2018', '2'), ('1240', 'Programacion', '1', 'c', 'Feb 2018 - Jul 2018', '2');
+
+
+
+//Calendario
+
+INSERT INTO calendario (Nombre_Actividad, Descripcion_Actividad, Fecha_Actividad, Academia) VALUES ('Junta Academica', 'Junta para tratar temas importante', '2018-04-26', 'Ingenieria de Software'), ('Envio de Plandes de curso', 'Enviar a la coordinadora los planes de curso de las materias que le correspondan', '2018-05-02', 'Redes');
+
+
+
+//Plan de Trabajo de Academia
+
+INSERT INTO plan_trabajo_academia (Id, Fecha_Aprobacion, Programa_Educativo, Periodo_Escolar, Id_Academia, Id_Coordinador, Objetivo_General, Estado) VALUES ('PTA1', '2018-02-10', 'Ingenieria de software', 'Feb 2018 - Jul 2018', 'AIS', '1', 'Docentes que impartiran determinadas materias', 1), ('PTA2', '2018-02-10', 'Redes y Servivios de Computo', 'Feb 2018 - Jul 2018', 'ARSC', '1', 'Organizacion del curso', 2);
+
+INSERT INTO plan_trabajo_academia_objetivo_particular (Id_Plan_Academia, Id, Descripcion) VALUES ('PTA1', 'OP1', 'Los maestros deciden que materias quieren impartir'), ('PTA2', 'OP1', 'Los maestros opinan sobre la forma de trabajo');
+
+INSERT INTO plan_trabajo_academia_objetivo_particular_meta VALUES 
+
