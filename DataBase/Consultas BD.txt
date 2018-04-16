@@ -56,7 +56,7 @@ CREATE TABLE plan_curso_calendario_evaluacion_unidad (Id_Plan_Curso varchar(30),
 
 // Avance Programático
 
-CREATE TABLE avance_programatico (Id varchar(30) NOT NULL, NRC int, Id_Docente varchar(100), Objetivo_General varchar(500), Estado enum('en_edicion','concluido'), Id_Plan_Curso PRIMARY KEY(Id));
+CREATE TABLE avance_programatico (Id varchar(30) NOT NULL, NRC int, Id_Docente varchar(100), Objetivo_General varchar(500), Estado enum('en_edicion','concluido'), Id_Plan_Curso varchar(100) PRIMARY KEY(Id));
 
 CREATE TABLE avance_programatico_unidad_planeacion (Id_Avance_Programatico varchar(30), Unidad int, Tema_Desarrollado varchar(150), Fecha date, Tarea_Practica_Realizada varchar(200), Tecnica_Didactica varchar(200));
 
@@ -96,5 +96,34 @@ INSERT INTO plan_trabajo_academia (Id, Fecha_Aprobacion, Programa_Educativo, Per
 
 INSERT INTO plan_trabajo_academia_objetivo_particular (Id_Plan_Academia, Id, Descripcion) VALUES ('PTA1', 'OP1', 'Los maestros deciden que materias quieren impartir'), ('PTA2', 'OP1', 'Los maestros opinan sobre la forma de trabajo');
 
-INSERT INTO plan_trabajo_academia_objetivo_particular_meta VALUES 
+INSERT INTO plan_trabajo_academia_objetivo_particular_meta (Id, Descripcion, Id_Objetivo_Particular) VALUES ('PTOPM1', 'Maestros competentes en las materias', 'OP1'), ('PTOPM2', 'Metodos adecuados para el aprendiseje de los alumnos', 'OP1');
+
+INSERT INTO plan_trabajo_academia_objetivo_particular_meta_actividad (Fecha_Semana, Actividad, Forma_Operar, Id_Meta) VALUES ('Feb 14 del 2018','reunion', 'junta de academia', 'PTOPM1'), ('Abril 14 de 2018', 'reunion', 'junta de academia', 'PTOPM2');
+
+INSERT INTO plan_trabajo_academia_examen_parcial (Id_Plan_Academia, Numero_Parcial, EE, Tema_De_Parcial) VALUES ('PTA1', '2', 'Principios de Construccion de Software', 'Buenas y malas practicas de programacion'), ('PTA1', '1', 'Redes', 'Modelo OSI');
+
+INSERT INTO plan_trabajo_academia_forma_evaluacion (Id_Plan_Academia, Elemento, Porcentaje) VALUES ('PTA1', 'Examen', '80.0'), ('PTA1', 'Proyecto', '20.0');
+
+INSERT INTO plan_trabajo_academia_historico_de_revision (Id_Plan_Academia, No_Revision, Fecha, Seccion, Descripcion) VALUES ('PTA1', '1', '2018-03-02', 'A', 'esto es una revision');
+
+
+
+//Plan de Curso
+
+INSERT INTO plan_curso (Id, NRC, Id_Docente, Objetivo_General, Estado) VALUES ('PC1', '1234', '1', 'Planear los temas del curso', 1), ('PC2', '1235', '2', 'Planear los temas del curso', 2);
+
+INSERT INTO plan_curso_unidad_planeacion (Id_Plan_Curso, Unidad, Tema, Fecha, Tarea_Practica, Tecnica_Didactica) VALUES ('PC1', '1', 'Complejidad ciclomatica', '2018-05-12', 'Investigacion', 'Presentacion con diapositivas'), ('PC1', '3', 'Direccionamiento IPV6', '2018-05-16', 'Practica de laboratorio', 'Presentacion con diapositivas');
+
+INSERT INTO plan_curso_bibliografia (Id_Plan_Curso, Autor, Titulo_Libro, Editorial, Año) VALUES ('PC1', 'Alberto Hernandez', 'Complejidad de codigo', 'Santillana', '2009'), ('PC2', 'Carlos Onorio', 'Redes', 'Santillana', '2002');
+
+
+
+
+//Avance Programatico
+
+INSERT INTO avance_programatico (Id, NRC, Id_Docente, Objetivo_General, Estado, Id_Plan_Curso) VALUES ('AP1', '1234', '1', 'Cubrir los temas del curso por completo', 1, 'PC1' );
+
+INSERT INTO avance_programatico_unidad_planeacion (Id_Avance_Programatico, Unidad, Tema_Desarrollado, Fecha, Tarea_Practica_Realizada, Tecnica_Didactica) VALUES ('AP1', '1', 'Complejidad ciclomatica', '2018-05-12', 'Investigacion', 'Presentacion con diapositivas');
+
+INSERT INTO avance_programatico_avance_unidad (Id_Avance_Programatico, Unidad, Porcentaje_Avance, Observacion) VALUES ('AP1', '1', '60.0', 'Hubo suspenciones que afectaron en desarrollo');
 
