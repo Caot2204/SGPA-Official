@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Carlos Onorio
+ * @author beto
  */
 public class SGPA extends Application {
     
