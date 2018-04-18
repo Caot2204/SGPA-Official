@@ -11,14 +11,6 @@ public class UnidadPlaneacionAvanceProgramatico {
     ArrayList<String> tareasPracticas;
     ArrayList<String> tecnicasDidacticas;
 
-    public UnidadPlaneacionAvanceProgramatico(int unidad, ArrayList<String> temasDesarrollados, ArrayList<Date> fechas, ArrayList<String> tareasPracticas, ArrayList<String> tecnicasDidacticas) {
-        this.unidad = unidad;
-        this.temasDesarrollados = temasDesarrollados;
-        this.fechas = fechas;
-        this.tareasPracticas = tareasPracticas;
-        this.tecnicasDidacticas = tecnicasDidacticas;
-    }
-
     public int getUnidad() {
         return unidad;
     }

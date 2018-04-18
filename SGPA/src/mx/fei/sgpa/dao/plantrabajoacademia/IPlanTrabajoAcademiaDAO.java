@@ -1,11 +1,11 @@
 package mx.fei.sgpa.dao.plantrabajoacademia;
 
-import java.util.List;
+import java.util.ArrayList;
 import mx.fei.sgpa.domain.plantrabajoacademia.PlanTrabajoAcademia;
 
 
 public interface IPlanTrabajoAcademiaDAO {
-    boolean guardarPlanTrabajoAcademia();
+    boolean guardarPlanTrabajoAcademia(PlanTrabajoAcademia planAcademia);
     PlanTrabajoAcademia buscarPlanTrabajoByID(String id);
-    List<PlanTrabajoAcademia> buscarPlanTrabajoByCoordinador(String idCoordinador);
+    ArrayList<PlanTrabajoAcademia> buscarPlanTrabajoByCoordinador(String idCoordinador);
 }
