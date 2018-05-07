@@ -12,11 +12,10 @@ public class DataBase {
     
     private static void makeConnection(){
         try {
-            
             String url= "jdbc:mysql://localhost/";
             String databaseName = "sgpa_database";
             String userName = "administrador_sgpa";
-            String password = "1234";
+            String password = "administrador";
        
             connection = (Connection)DriverManager.getConnection(url+databaseName,userName,password);
         } catch (SQLException ex) {

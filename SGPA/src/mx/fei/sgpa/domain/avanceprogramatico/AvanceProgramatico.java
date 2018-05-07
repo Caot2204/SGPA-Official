@@ -5,18 +5,22 @@ import java.util.ArrayList;
 import mx.fei.sgpa.domain.EstadoDeDocumento;
 
 public class AvanceProgramatico {
-    String id;
-    String idPlanDeCurso;
-    int nrc;
-    String nombreExperiencia;
-    String programaEducativo;
-    String bloque;
-    String seccion;
-    String academico;
-    String objetivoGeneral;
-    ArrayList<UnidadPlaneacionAvanceProgramatico> unidadesDePlaneacion;
-    ArrayList<AvanceUnidadAvanceProgramatico> avancesDeUnidad;
-    EstadoDeDocumento estado;
+    private String id;
+    private String idPlanDeCurso;
+    private int nrc;
+    private String nombreExperiencia;
+    private String programaEducativo;
+    private String bloque;
+    private String seccion;
+    private String academico;
+    private String objetivoGeneral;
+    private ArrayList<UnidadDePlaneacion> unidadesDePlaneacion;
+    private ArrayList<AvancePorUnidad> avancesDeUnidad;
+    private EstadoDeDocumento estado;
+    
+    public AvanceProgramatico(){
+        
+    }
 
     public String getId() {
         return id;
@@ -54,11 +58,11 @@ public class AvanceProgramatico {
         return objetivoGeneral;
     }
 
-    public ArrayList<UnidadPlaneacionAvanceProgramatico> getUnidadesDePlaneacion() {
+    public ArrayList<UnidadDePlaneacion> getUnidadesDePlaneacion() {
         return unidadesDePlaneacion;
     }
 
-    public ArrayList<AvanceUnidadAvanceProgramatico> getAvancesDeUnidad() {
+    public ArrayList<AvancePorUnidad> getAvancesDeUnidad() {
         return avancesDeUnidad;
     }
 
@@ -102,11 +106,11 @@ public class AvanceProgramatico {
         this.objetivoGeneral = objetivoGeneral;
     }
 
-    public void setUnidadesDePlaneacion(ArrayList<UnidadPlaneacionAvanceProgramatico> unidadesDePlaneacion) {
+    public void setUnidadesDePlaneacion(ArrayList<UnidadDePlaneacion> unidadesDePlaneacion) {
         this.unidadesDePlaneacion = unidadesDePlaneacion;
     }
 
-    public void setAvancesDeUnidad(ArrayList<AvanceUnidadAvanceProgramatico> avancesDeUnidad) {
+    public void setAvancesDeUnidad(ArrayList<AvancePorUnidad> avancesDeUnidad) {
         this.avancesDeUnidad = avancesDeUnidad;
     }
 
