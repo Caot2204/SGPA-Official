@@ -171,8 +171,8 @@ public class AvanceProgramaticoDAO implements IAvanceProgramaticoDAO{
                 avanceProgramatico.setNrc(resultadoConsulta.getInt("NRC"));
                 avanceProgramatico.setObjetivoGeneral(resultadoConsulta.getString("Objetivo_General"));
                 avanceProgramatico.setEstado(EstadoDeDocumento.valueOf(resultadoConsulta.getString("Estado")));
-                avanceProgramatico.setUnidadesDePlaneacion(obtenerUnidadesPlaneacionDeAvance(avanceProgramatico.getId()));
-                avanceProgramatico.setAvancesDeUnidad(obtenerAvancesUnidadDeAvance(avanceProgramatico.getId()));
+                avanceProgramatico.setUnidadesDePlaneacion(obtenerUnidadesDePlaneacion(avanceProgramatico.getId()));
+                avanceProgramatico.setAvancesDeUnidad(obtenerAvancesPorUnidad(avanceProgramatico.getId()));
             }
             
         } 
@@ -206,8 +206,8 @@ public class AvanceProgramaticoDAO implements IAvanceProgramaticoDAO{
                 avanceProgramatico.setNrc(resultadoConsulta.getInt("NRC"));
                 avanceProgramatico.setObjetivoGeneral(resultadoConsulta.getString("Objetivo_General"));
                 avanceProgramatico.setEstado(EstadoDeDocumento.valueOf(resultadoConsulta.getString("Estado")));
-                avanceProgramatico.setUnidadesDePlaneacion(obtenerUnidadesPlaneacionDeAvance(avanceProgramatico.getId()));
-                avanceProgramatico.setAvancesDeUnidad(obtenerAvancesUnidadDeAvance(avanceProgramatico.getId()));
+                avanceProgramatico.setUnidadesDePlaneacion(obtenerUnidadesDePlaneacion(avanceProgramatico.getId()));
+                avanceProgramatico.setAvancesDeUnidad(obtenerAvancesPorUnidad(avanceProgramatico.getId()));
                 
                 avancesProgramaticos.add(avanceProgramatico);
             }
@@ -224,7 +224,7 @@ public class AvanceProgramaticoDAO implements IAvanceProgramaticoDAO{
     }
 
     @Override
-    public ArrayList<UnidadDePlaneacion> obtenerUnidadesPlaneacionDeAvance(String idAvanceProgramatico) {
+    public ArrayList<UnidadDePlaneacion> obtenerUnidadesDePlaneacion(String idAvanceProgramatico) {
         unidadesPlaneacionAvanceProgramatico = new ArrayList<>();
         
         ArrayList<Integer> numerosUnidad = buscarUnidadesPlaneacion(idAvanceProgramatico);
@@ -301,7 +301,7 @@ public class AvanceProgramaticoDAO implements IAvanceProgramaticoDAO{
     }
 
     @Override
-    public ArrayList<AvancePorUnidad> obtenerAvancesUnidadDeAvance(String idAvanceProgramatico) {
+    public ArrayList<AvancePorUnidad> obtenerAvancesPorUnidad(String idAvanceProgramatico) {
         avancesUnidadAvanceProgramatico = new ArrayList<>();
         
         consulta = "SELECT * FROM avance_programatico_avance_unidad WHERE Id_Avance_Programatico=?";

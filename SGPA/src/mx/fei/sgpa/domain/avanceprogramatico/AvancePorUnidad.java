@@ -10,6 +10,12 @@ public class AvancePorUnidad {
         
     }
 
+    public AvancePorUnidad(int unidad, float porcentaje, String observacion) {
+        this.unidad = unidad;
+        this.porcentaje = porcentaje;
+        this.observacion = observacion;
+    }
+
     public int getUnidad() {
         return unidad;
     }

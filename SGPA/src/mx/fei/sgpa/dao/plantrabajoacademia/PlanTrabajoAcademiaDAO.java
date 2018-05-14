@@ -43,7 +43,7 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
             sentencia.setString(5, planAcademia.getNombreAcademia());
             sentencia.setString(6, planAcademia.getNombreCoordinador());
             sentencia.setString(7, planAcademia.getObjetivoGeneral());
-            sentencia.setObject(8, planAcademia.getEstado());
+            sentencia.setString(8, planAcademia.getEstado().name());
             sentencia.execute();
             
             guardarObjetivosParticulares(idPlan, planAcademia.getObjetivosParticulares());            
@@ -300,7 +300,7 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
                 planAcademia.setNombreAcademia(resultadoSentencia.getString("Id_Academia"));
                 planAcademia.setNombreCoordinador(resultadoSentencia.getString("Id_Coordinador"));
                 planAcademia.setObjetivoGeneral(resultadoSentencia.getString("Objetivo_General"));
-                planAcademia.setEstado(resultadoSentencia.getObject("Estado", EstadoDeDocumento.class));
+                planAcademia.setEstado(EstadoDeDocumento.valueOf(resultadoSentencia.getString("Estado")));
             }
             
         } 

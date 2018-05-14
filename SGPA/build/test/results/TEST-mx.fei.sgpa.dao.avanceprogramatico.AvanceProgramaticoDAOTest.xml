@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="DESKTOP-5KK2UEG" name="mx.fei.sgpa.dao.plantrabajoacademia.PlanTrabajoAcademiaDAOTest" skipped="0" tests="10" time="2.849" timestamp="2018-05-14T23:22:13">
+<testsuite errors="0" failures="0" hostname="DESKTOP-5KK2UEG" name="mx.fei.sgpa.dao.avanceprogramatico.AvanceProgramaticoDAOTest" skipped="0" tests="2" time="1.374" timestamp="2018-05-08T23:13:04">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="MX" />
@@ -9,7 +9,7 @@
     <property name="manifest.custom.codebase" value="*" />
     <property name="ant.file.SGPA-impl" value="C:\Users\Carlos Onorio\Documents\NetBeansProjects\SGPA\nbproject\build-impl.xml" />
     <property name="libs.spring-webmvc4.0.src" value="" />
-    <property name="javac.includes" value="mx/fei/sgpa/dao/plantrabajoacademia/PlanTrabajoAcademiaDAOTest.java" />
+    <property name="javac.includes" value="mx/fei/sgpa/dao/avanceprogramatico/AvanceProgramaticoDAOTest.java" />
     <property name="ant.core.lib" value="C:\Program Files\NetBeans 8.2\extide\ant\lib\ant.jar" />
     <property name="javadoc.windowtitle" value="" />
     <property name="libs.jsp-compilation.javadoc" value="" />
@@ -42,7 +42,7 @@
     <property name="libs.hamcrest.classpath" value="C:\Program Files\NetBeans 8.2\platform\modules\ext\hamcrest-core-1.3.jar" />
     <property name="libs.javac-api.javadoc" value="" />
     <property name="os.name" value="Windows 10" />
-    <property name="test.class" value="mx.fei.sgpa.dao.plantrabajoacademia.PlanTrabajoAcademiaDAOTest" />
+    <property name="test.class" value="mx.fei.sgpa.dao.avanceprogramatico.AvanceProgramaticoDAOTest" />
     <property name="libs.beans-binding.classpath" value="C:\Program Files\NetBeans 8.2\java\modules\ext\beansbinding-1.2.1.jar" />
     <property name="libs.javaee-endorsed-api-7.0.maven-pom" value="" />
     <property name="ap.proc.none.internal" value="" />
@@ -64,7 +64,7 @@
     <property name="copylibs.rebase" value="true" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner mx.fei.sgpa.dao.plantrabajoacademia.PlanTrabajoAcademiaDAOTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Carlos Onorio\Documents\NetBeansProjects\SGPA\build\test\results\TEST-mx.fei.sgpa.dao.plantrabajoacademia.PlanTrabajoAcademiaDAOTest.xml crashfile=C:\Users\Carlos Onorio\Documents\NetBeansProjects\SGPA\build\junitvmwatcher1946330681529074075.properties propsfile=C:\Users\Carlos Onorio\Documents\NetBeansProjects\SGPA\build\junit216209054970967918.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner mx.fei.sgpa.dao.avanceprogramatico.AvanceProgramaticoDAOTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Carlos Onorio\Documents\NetBeansProjects\SGPA\build\test\results\TEST-mx.fei.sgpa.dao.avanceprogramatico.AvanceProgramaticoDAOTest.xml crashfile=C:\Users\Carlos Onorio\Documents\NetBeansProjects\SGPA\build\junitvmwatcher110989478712685376.properties propsfile=C:\Users\Carlos Onorio\Documents\NetBeansProjects\SGPA\build\junit238057616837857113.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="netbeans.accept_license_class" value="org.netbeans.license.AcceptLicense" />
     <property name="build.sysclasspath" value="ignore" />
@@ -91,7 +91,7 @@
     <property name="javafx.deploy.includeDT" value="true" />
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_162\jre\lib\endorsed" />
     <property name="libs.Comet-GlassFish-v3.maven-pom" value="" />
-    <property name="test.includes" value="mx/fei/sgpa/dao/plantrabajoacademia/PlanTrabajoAcademiaDAOTest.java" />
+    <property name="test.includes" value="mx/fei/sgpa/dao/avanceprogramatico/AvanceProgramaticoDAOTest.java" />
     <property name="netbeans.dynamic.classpath" value="C:\Program Files\NetBeans 8.2\platform\core\asm-all-5.0.1.jar;C:\Program Files\NetBeans 8.2\platform\core\core-base.jar;C:\Program Files\NetBeans 8.2\platform\core\core.jar;C:\Program Files\NetBeans 8.2\platform\core\org-netbeans-libs-asm.jar;C:\Program Files\NetBeans 8.2\platform\core\org-openide-filesystems-compat8.jar;C:\Program Files\NetBeans 8.2\platform\core\org-openide-filesystems.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\core-base_ja.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\core-base_pt_BR.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\core-base_ru.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\core-base_zh_CN.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\core_ja.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\core_pt_BR.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\core_ru.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\core_zh_CN.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-netbeans-libs-asm_ja.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-netbeans-libs-asm_pt_BR.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-netbeans-libs-asm_ru.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-netbeans-libs-asm_zh_CN.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-openide-filesystems-compat8_ja.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-openide-filesystems-compat8_pt_BR.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-openide-filesystems-compat8_ru.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-openide-filesystems-compat8_zh_CN.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-openide-filesystems_ja.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-openide-filesystems_pt_BR.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-openide-filesystems_ru.jar;C:\Program Files\NetBeans 8.2\platform\core\locale\org-openide-filesystems_zh_CN.jar;C:\Program Files\NetBeans 8.2\nb\core\org-netbeans-upgrader.jar;C:\Program Files\NetBeans 8.2\nb\core\locale\core_nb.jar;C:\Program Files\NetBeans 8.2\nb\core\locale\core_nb_ja.jar;C:\Program Files\NetBeans 8.2\nb\core\locale\core_nb_pt_BR.jar;C:\Program Files\NetBeans 8.2\nb\core\locale\core_nb_ru.jar;C:\Program Files\NetBeans 8.2\nb\core\locale\core_nb_zh_CN.jar;C:\Program Files\NetBeans 8.2\nb\core\locale\org-netbeans-upgrader_ja.jar;C:\Program Files\NetBeans 8.2\nb\core\locale\org-netbeans-upgrader_pt_BR.jar;C:\Program Files\NetBeans 8.2\nb\core\locale\org-netbeans-upgrader_ru.jar;C:\Program Files\NetBeans 8.2\nb\core\locale\org-netbeans-upgrader_zh_CN.jar" />
     <property name="jnlp.enabled" value="false" />
     <property name="java.vm.specification.version" value="1.8" />
@@ -110,7 +110,7 @@
     <property name="javadoc.splitindex" value="true" />
     <property name="file.separator" value="\" />
     <property name="libs.Java-EE-GlassFish-v3-Prelude.maven-pom" value="" />
-    <property name="javac.includesfile.binary" value="C:\Users\Carlos Onorio\Documents\NetBeansProjects\SGPA\null765688150" />
+    <property name="javac.includesfile.binary" value="C:\Users\Carlos Onorio\Documents\NetBeansProjects\SGPA\null2074751061" />
     <property name="libs.junit_4.maven-pom" value="" />
     <property name="javac.test.processorpath" value="C:\Program Files\Java\jdk1.8.0_162\jre/lib/javaws.jar:C:\Program Files\Java\jdk1.8.0_162\jre/lib/deploy.jar:C:\Program Files\Java\jdk1.8.0_162\jre/lib/plugin.jar:C:\Program Files\NetBeans 8.2\ide\modules\ext\mysql-connector-java-5.1.23-bin.jar:build/classes:C:\Program Files\NetBeans 8.2\platform\modules\ext\junit-4.12.jar:C:\Program Files\NetBeans 8.2\platform\modules\ext\hamcrest-core-1.3.jar" />
     <property name="netbeans.buildnumber" value="201609300101" />
@@ -123,7 +123,7 @@
     <property name="libs.hibernate4-persistencemodelgen.javadoc" value="" />
     <property name="libs.jaxb.javadoc" value="C:\Program Files\NetBeans 8.2\ide\docs\jaxb-api-doc.zip" />
     <property name="libs.struts.classpath" value="C:\Program Files\NetBeans 8.2\enterprise\modules\ext\struts\antlr-2.7.2.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\struts\bsf-2.3.0.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\struts\commons-beanutils-1.8.0.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\struts\commons-chain-1.2.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\struts\commons-digester-1.8.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\struts\commons-fileupload-1.1.1.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\struts\commons-io-1.1.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\struts\commons-logging-1.0.4.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\struts\commons-validator-1.3.1.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\struts\jstl-1.0.2.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\struts\oro-2.0.8.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\struts\standard-1.0.6.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\struts\struts-core-1.3.10.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\struts\struts-el-1.3.10.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\struts\struts-extras-1.3.10.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\struts\struts-faces-1.3.10.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\struts\struts-mailreader-dao-1.3.10.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\struts\struts-scripting-1.3.10.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\struts\struts-taglib-1.3.10.jar;C:\Program Files\NetBeans 8.2\enterprise\modules\ext\struts\struts-tiles-1.3.10.jar" />
-    <property name="javac.includes.binary" value="C:\Users\Carlos Onorio\Documents\NetBeansProjects\SGPA\build\test\classes\mx\fei\sgpa\dao\plantrabajoacademia\PlanTrabajoAcademiaDAOTest.class" />
+    <property name="javac.includes.binary" value="C:\Users\Carlos Onorio\Documents\NetBeansProjects\SGPA\build\test\classes\mx\fei\sgpa\dao\avanceprogramatico\AvanceProgramaticoDAOTest.class" />
     <property name="ant.home" value="C:\Program Files\NetBeans 8.2\extide\ant" />
     <property name="libs.junit_4.src" value="C:\Program Files\NetBeans 8.2\platform\docs\junit-4.12-sources.jar" />
     <property name="javafx.run.height" value="600" />
@@ -433,16 +433,8 @@
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
     <property name="libs.javaee-web-api-7.0.javadoc" value="C:\Program Files\NetBeans 8.2\enterprise\docs\javaee-doc-api.jar" />
   </properties>
-  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteGuardadoPlanAcademia" name="almacenarPlanAcademia" time="1.824" />
-  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarEstadoPlan" time="0.047" />
-  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarObjetivosParticulares" time="0.093" />
-  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarMetasDeObjetivoParticular" time="0.047" />
-  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarAccionesDeUnaMeta" time="0.053" />
-  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarTemasDeParcialDeEE" time="0.031" />
-  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarAutorizacion" time="0.031" />
-  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarRevisiones" time="0.023" />
-  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarCantidadDeParcialesPorEE" time="0.016" />
-  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="obtenerFormasDeEvaluacion" time="0.032" />
+  <testcase classname="mx.fei.sgpa.dao.avanceprogramatico.suitepruebas.SuiteAlmacenarAvanceProgramatico" name="guardarAvancesUnidad" time="1.016" />
+  <testcase classname="mx.fei.sgpa.dao.avanceprogramatico.suitepruebas.SuiteRecuperarAvanceProgramatico" name="recuperarAvancesPorUnidad" time="0.05" />
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

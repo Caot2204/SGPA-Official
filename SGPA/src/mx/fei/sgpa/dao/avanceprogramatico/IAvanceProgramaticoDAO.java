@@ -13,6 +13,6 @@ public interface IAvanceProgramaticoDAO {
     boolean guardarAvancesPorUnidades(String idAvanceProgramatico, ArrayList<AvancePorUnidad> avancesUnidad);
     AvanceProgramatico buscarAvanceProgramaticoById(String id);
     ArrayList<AvanceProgramatico> buscarAvanceProgramaticoByDocente(String idDocente);
-    ArrayList<UnidadDePlaneacion> obtenerUnidadesPlaneacionDeAvance (String idAvanceProgramatico);
-    ArrayList<AvancePorUnidad> obtenerAvancesUnidadDeAvance (String idAvanceProgramatico);
+    ArrayList<UnidadDePlaneacion> obtenerUnidadesDePlaneacion (String idAvanceProgramatico);
+    ArrayList<AvancePorUnidad> obtenerAvancesPorUnidad (String idAvanceProgramatico);
 }
