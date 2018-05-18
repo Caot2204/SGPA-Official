@@ -17,6 +17,50 @@ public class UnidadDePlaneacion {
     String tema;
     Date fecha;
     String tareaPractica;
-    String tecnicadiDidactica;
+    String tecnicaDidactica;
+
+    public UnidadDePlaneacion() {
+    }
+    
+
+    public int getUnidad() {
+        return unidad;
+    }
+
+    public String getTema() {
+        return tema;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public String getTareaPractica() {
+        return tareaPractica;
+    }
+
+    public String getTecnicaDidactica() {
+        return tecnicaDidactica;
+    }
+
+    public void setUnidad(int unidad) {
+        this.unidad = unidad;
+    }
+
+    public void setTema(String tema) {
+        this.tema = tema;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public void setTareaPractica(String tareaPractica) {
+        this.tareaPractica = tareaPractica;
+    }
+
+    public void setTecnicaDidactica(String tecnicaDidactica) {
+        this.tecnicaDidactica = tecnicaDidactica;
+    }
     
 }
