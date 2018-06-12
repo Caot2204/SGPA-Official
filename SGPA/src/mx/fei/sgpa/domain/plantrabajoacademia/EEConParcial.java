@@ -1,3 +1,10 @@
+/****************************************************************/
+/* Nombre: Carlos Alberto Onorio Torres.			  */
+/* Fecha de creación:   04/05/2018				  */
+/* Ultima modificación: 04/05/2018				  */
+/* Descripción: Detalles de una Experiencia Educativa con         */
+/*              Exámenes parciales ingresados por el Coordianador.*/
+/****************************************************************/
 
 package mx.fei.sgpa.domain.plantrabajoacademia;
 

@@ -1,3 +1,10 @@
+/****************************************************************/
+/* Nombre: Carlos Alberto Onorio Torres.			  */
+/* Fecha de creación:   24/04/2018				  */
+/* Ultima modificación: 03/05/2018				  */
+/* Descripción: Detalles de las Formas de Evaluacion del Formato  */
+/*              de Academia PlanTrabajoAcademia			  */
+/****************************************************************/
 
 package mx.fei.sgpa.domain.plantrabajoacademia;
 

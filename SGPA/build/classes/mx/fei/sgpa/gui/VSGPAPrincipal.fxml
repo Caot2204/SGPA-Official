@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="486.0" prefWidth="875.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.fei.sgpa.gui.VSGPAPrincipalController">
+   <children>
+      <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="169.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resource/configuration.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="210.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resource/exit.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="122.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resource/calendar.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="78.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resource/notification.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="56.0" fitWidth="58.0" layoutX="14.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resource/contact-icon.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="78.0" layoutY="22.0" text="Hola &quot;Nombre académico&quot;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ListView layoutX="430.0" layoutY="117.0" prefHeight="293.0" prefWidth="422.0" />
+      <Label layoutX="530.0" layoutY="85.0" text="Últimas actividades realizadas">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Separator layoutX="15.0" layoutY="88.0" prefHeight="0.0" prefWidth="223.0" />
+      <Button fx:id="buttonElaborarFormato" layoutX="430.0" layoutY="432.0" mnemonicParsing="false" onAction="#elaborarDocumento" prefHeight="32.0" prefWidth="124.0" text="Elaborar formato" />
+      <Button layoutX="586.0" layoutY="432.0" mnemonicParsing="false" onAction="#editarDocumento" prefHeight="32.0" prefWidth="111.0" text="Editar formato" />
+      <Button layoutX="723.0" layoutY="432.0" mnemonicParsing="false" onAction="#visualizarDocumento" prefHeight="32.0" prefWidth="131.0" text="Visualizar formato" />
+      <ComboBox layoutX="689.0" layoutY="30.0" prefHeight="25.0" prefWidth="165.0" promptText="Academias asociadas" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="348.0" layoutX="15.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="400.0" />
+      <Label layoutX="86.0" layoutY="279.0" text="Calendario por implementar" textFill="#fcf5f5">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

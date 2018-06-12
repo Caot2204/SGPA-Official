@@ -23,6 +23,7 @@ public class SuiteGuardadoPlanAcademia {
 
     private PlanTrabajoAcademiaDAO planAcademiaDAO;
     private final PlanTrabajoAcademia planAcademia;
+    private final PlanTrabajoAcademia planAcademiaB;
     private final ArrayList<AccionDeMeta> accionesDeMeta;
     private final ArrayList<MetaDeObjetivo> metasDeObjetivo;
     private final ArrayList<ObjetivoParticular> objetivosParticulares;
@@ -36,6 +37,7 @@ public class SuiteGuardadoPlanAcademia {
     public SuiteGuardadoPlanAcademia() throws ParseException {
         planAcademiaDAO = new PlanTrabajoAcademiaDAO();
         planAcademia = new PlanTrabajoAcademia();
+        planAcademiaB = new PlanTrabajoAcademia();
         metasDeObjetivo = new ArrayList<>();
         objetivosParticulares = new ArrayList<>();
         eesConParciales = new ArrayList<>();
@@ -144,15 +146,37 @@ public class SuiteGuardadoPlanAcademia {
         planAcademia.setFormasDeEvaluacion(formasDeEvaluacion);
         planAcademia.setHistoricoDeRevisiones(historicoDeRevisiones);
         planAcademia.setAutorizacion(firmaDeAutorizacion);
-        planAcademia.setEstado(EstadoDeDocumento.EN_EDICION);
+        planAcademia.setEstado(EstadoDeDocumento.CONCLUIDO);
+        
+        planAcademiaB.setId("PLAT-3");
+        planAcademiaB.setFechaAprobacion(fechaAutorizacion);
+        planAcademiaB.setProgramaEducativo("2002");
+        planAcademiaB.setPeriodoEscolar("Febrero - Julio 2018");
+        planAcademiaB.setNombreAcademia("Ingeniería de Software");
+        planAcademiaB.setNombreCoordinador("Juan Carlos Pérez Arriaga");
+        planAcademiaB.setObjetivoGeneral("Revisar programa de las EE que conforman la académia. Acordar fechas de exámenes parciales y finales. Estandarizar métodos de evaluación y ponderación de exámenes teóricos y prácticos.");
+        planAcademiaB.setObjetivosParticulares(new ArrayList<ObjetivoParticular>());
+        planAcademiaB.setExamenesParciales(new ArrayList<EEConParcial>());
+        planAcademiaB.setFormasDeEvaluacion(new ArrayList<FormaDeEvaluacion>());
+        planAcademiaB.setHistoricoDeRevisiones(new ArrayList<Revision>());
+        planAcademiaB.setAutorizacion(new FirmaAutorizacion());
+        planAcademiaB.setEstado(EstadoDeDocumento.EN_EDICION);
     }
     
     @Test
-    public void almacenarPlanAcademia(){
+    public void almacenarPlanAcademiaConcluido(){
         boolean valorEsperado = true;
-        boolean valorObtenido = planAcademiaDAO.guardarPlanTrabajoAcademia(planAcademia);
+        boolean valorObtenido = planAcademiaDAO.guardarPlanTrabajoAcademiaCompleto(planAcademia);
         
         assertEquals("Prueba guardar plan trabajo academia completo", valorEsperado, valorObtenido);       
-    }    
+    }
+
+    @Test
+    public void almacenarPlanAcademiaEnEdicion(){
+        boolean valorEsperado = true;
+        boolean valorObtenido = planAcademiaDAO.guardarPlanTrabajoAcademiaCompleto(planAcademiaB);
+        
+        assertEquals("Prueba guardar plan trabajo academia completo", valorEsperado, valorObtenido);       
+    }
     
 }

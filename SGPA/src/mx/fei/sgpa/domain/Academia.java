@@ -1,16 +1,33 @@
-
+/****************************************************************/
+/* Nombre: Carlos Alberto Onorio Torres.			  */
+/* Fecha de creación:   07/05/2018				  */
+/* Ultima modificación: 07/05/2018				  */
+/* Descripción: Detalles de una Academia.                         */
+/****************************************************************/
 package mx.fei.sgpa.domain;
 
 import java.util.ArrayList;
+import mx.fei.sgpa.dao.academia.AcademiaDAO;
+import mx.fei.sgpa.dao.academico.AcademicoDAO;
 
 public class Academia {
     String idAcademia;
     String nombreAcademia;
-    String coordinadorAcademia;
-    ArrayList<Academico> integrantes;
+    int coordinadorAcademia;
     
     public Academia() {
         
+    }
+    
+    public String obtenerNombreDeCoordinador() {
+        AcademicoDAO academicoDAO = new AcademicoDAO();
+        Academico coordinador = academicoDAO.obtenerAcademico(coordinadorAcademia);
+        return coordinador.getNombreAcademico();
+    }
+    
+    public ArrayList<Academico> obtenerIntegrantes() {
+        AcademiaDAO academiaDAO = new AcademiaDAO();
+        return academiaDAO.obtenerIntegrantesAcademia(idAcademia);
     }
 
     public String getIdAcademia() {
@@ -21,12 +38,8 @@ public class Academia {
         return nombreAcademia;
     }
 
-    public String getCoordinadorAcademia() {
+    public int getCoordinadorAcademia() {
         return coordinadorAcademia;
-    }
-
-    public ArrayList<Academico> getIntegrantes() {
-        return integrantes;
     }
 
     public void setIdAcademia(String idAcademia) {
@@ -37,12 +50,13 @@ public class Academia {
         this.nombreAcademia = nombreAcademia;
     }
 
-    public void setCoordinadorAcademia(String coordinadorAcademia) {
+    public void setCoordinadorAcademia(int coordinadorAcademia) {
         this.coordinadorAcademia = coordinadorAcademia;
     }
-
-    public void setIntegrantes(ArrayList<Academico> integrantes) {
-        this.integrantes = integrantes;
+    
+    @Override
+    public String toString(){
+        return this.nombreAcademia;
     }
     
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="DESKTOP-5KK2UEG" name="mx.fei.sgpa.dao.plantrabajoacademia.PlanTrabajoAcademiaDAOTest" skipped="0" tests="10" time="2.849" timestamp="2018-05-14T23:22:13">
+<testsuite errors="0" failures="0" hostname="DESKTOP-5KK2UEG" name="mx.fei.sgpa.dao.plantrabajoacademia.PlanTrabajoAcademiaDAOTest" skipped="0" tests="15" time="5.224" timestamp="2018-06-12T17:28:57">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="MX" />
@@ -64,7 +64,7 @@
     <property name="copylibs.rebase" value="true" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner mx.fei.sgpa.dao.plantrabajoacademia.PlanTrabajoAcademiaDAOTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Carlos Onorio\Documents\NetBeansProjects\SGPA\build\test\results\TEST-mx.fei.sgpa.dao.plantrabajoacademia.PlanTrabajoAcademiaDAOTest.xml crashfile=C:\Users\Carlos Onorio\Documents\NetBeansProjects\SGPA\build\junitvmwatcher1946330681529074075.properties propsfile=C:\Users\Carlos Onorio\Documents\NetBeansProjects\SGPA\build\junit216209054970967918.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner mx.fei.sgpa.dao.plantrabajoacademia.PlanTrabajoAcademiaDAOTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Carlos Onorio\Documents\NetBeansProjects\SGPA\build\test\results\TEST-mx.fei.sgpa.dao.plantrabajoacademia.PlanTrabajoAcademiaDAOTest.xml crashfile=C:\Users\Carlos Onorio\Documents\NetBeansProjects\SGPA\build\junitvmwatcher369428608801414506.properties propsfile=C:\Users\Carlos Onorio\Documents\NetBeansProjects\SGPA\build\junit7360859680360644471.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="netbeans.accept_license_class" value="org.netbeans.license.AcceptLicense" />
     <property name="build.sysclasspath" value="ignore" />
@@ -110,7 +110,7 @@
     <property name="javadoc.splitindex" value="true" />
     <property name="file.separator" value="\" />
     <property name="libs.Java-EE-GlassFish-v3-Prelude.maven-pom" value="" />
-    <property name="javac.includesfile.binary" value="C:\Users\Carlos Onorio\Documents\NetBeansProjects\SGPA\null765688150" />
+    <property name="javac.includesfile.binary" value="C:\Users\Carlos Onorio\Documents\NetBeansProjects\SGPA\null1918614121" />
     <property name="libs.junit_4.maven-pom" value="" />
     <property name="javac.test.processorpath" value="C:\Program Files\Java\jdk1.8.0_162\jre/lib/javaws.jar:C:\Program Files\Java\jdk1.8.0_162\jre/lib/deploy.jar:C:\Program Files\Java\jdk1.8.0_162\jre/lib/plugin.jar:C:\Program Files\NetBeans 8.2\ide\modules\ext\mysql-connector-java-5.1.23-bin.jar:build/classes:C:\Program Files\NetBeans 8.2\platform\modules\ext\junit-4.12.jar:C:\Program Files\NetBeans 8.2\platform\modules\ext\hamcrest-core-1.3.jar" />
     <property name="netbeans.buildnumber" value="201609300101" />
@@ -130,7 +130,7 @@
     <property name="libs.testng.classpath" value="C:\Program Files\NetBeans 8.2\platform\modules\ext\testng-6.8.1-dist.jar" />
     <property name="libs.absolutelayout.maven-pom" value="" />
     <property name="ant.java.version" value="1.8" />
-    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_162\jre\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files\MySQL\MySQL Utilities 1.6\;C:\Program Files\MySQL\MySQL Server 5.7\bin;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Ruby24-x64\bin;C:\Users\Carlos Onorio\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Java\jdk1.8.0_162\bin;C:\Users\Carlos Onorio\Documents\Programas\mysql-connector-java-5.1.45\mysql-connector-java-5.1.45;C:\Program Files\MySQL\MySQL Server 5.7\bin;C:\Users\Carlos Onorio\AppData\Local\GitHubDesktop\bin;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;;." />
+    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_162\jre\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files\MySQL\MySQL Utilities 1.6\;C:\Program Files\MySQL\MySQL Server 5.7\bin;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Ruby25-x64\bin;C:\Users\Carlos Onorio\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Java\jdk1.8.0_162\bin;C:\Users\Carlos Onorio\Documents\Programas\mysql-connector-java-5.1.45\mysql-connector-java-5.1.45;C:\Program Files\MySQL\MySQL Server 5.7\bin;C:\Users\Carlos Onorio\AppData\Local\GitHubDesktop\bin;C:\Users\Carlos Onorio\AppData\Local\Microsoft\WindowsApps;." />
     <property name="javadoc.author" value="false" />
     <property name="libs.metro.maven-pom" value="" />
     <property name="libs.EclipseLink-GlassFish-v3.src" value="" />
@@ -433,16 +433,21 @@
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
     <property name="libs.javaee-web-api-7.0.javadoc" value="C:\Program Files\NetBeans 8.2\enterprise\docs\javaee-doc-api.jar" />
   </properties>
-  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteGuardadoPlanAcademia" name="almacenarPlanAcademia" time="1.824" />
-  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarEstadoPlan" time="0.047" />
-  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarObjetivosParticulares" time="0.093" />
-  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarMetasDeObjetivoParticular" time="0.047" />
-  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarAccionesDeUnaMeta" time="0.053" />
-  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarTemasDeParcialDeEE" time="0.031" />
-  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarAutorizacion" time="0.031" />
-  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarRevisiones" time="0.023" />
-  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarCantidadDeParcialesPorEE" time="0.016" />
-  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="obtenerFormasDeEvaluacion" time="0.032" />
+  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteGuardadoPlanAcademia" name="almacenarPlanAcademiaEnEdicion" time="1.174" />
+  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteGuardadoPlanAcademia" name="almacenarPlanAcademiaConcluido" time="1.979" />
+  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarEstadoPlan" time="0.302" />
+  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarObjetivosParticulares" time="0.064" />
+  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarMetasDeObjetivoParticular" time="0.042" />
+  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarAccionesDeUnaMeta" time="0.018" />
+  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarTemasDeParcialDeEE" time="0.022" />
+  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarPlanDeCoordinadorEnEdicion" time="0.147" />
+  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarAutorizacion" time="0.02" />
+  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarRevisiones" time="0.024" />
+  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarCantidadDeParcialesPorEE" time="0.022" />
+  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="recuperarPlanDeCoordinador" time="0.241" />
+  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteLecturaPlanAcademia" name="obtenerFormasDeEvaluacion" time="0.015" />
+  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteEliminadoPlanAcademia" name="limpiarDatosUtilizadosEnPruebas" time="0.688" />
+  <testcase classname="mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas.SuiteEliminadoPlanAcademia" name="limpiarDatosUtilizadosEnPruebasB" time="0.077" />
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

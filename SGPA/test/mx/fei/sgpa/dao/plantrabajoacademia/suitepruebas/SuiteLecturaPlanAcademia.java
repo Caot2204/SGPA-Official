@@ -143,7 +143,8 @@ public class SuiteLecturaPlanAcademia {
         planAcademia.setFormasDeEvaluacion(formasDeEvaluacion);
         planAcademia.setHistoricoDeRevisiones(historicoDeRevisiones);
         planAcademia.setAutorizacion(firmaDeAutorizacion);
-        planAcademia.setEstado(EstadoDeDocumento.EN_EDICION);
+        planAcademia.setEstado(EstadoDeDocumento.CONCLUIDO);
+        
     }
     
     @Test
@@ -226,8 +227,7 @@ public class SuiteLecturaPlanAcademia {
     }
     
     @Test
-    public void recuperarRevisiones() throws ParseException{
-                
+    public void recuperarRevisiones() throws ParseException{      
         int valorEsperado = this.historicoDeRevisiones.size();
         
         ArrayList<Revision> revisiones = planAcademiaDAO.obtenerHistoricoDeRevision("PLAT-2");
@@ -239,7 +239,6 @@ public class SuiteLecturaPlanAcademia {
             assertEquals("Prueba de la fecha revision", this.historicoDeRevisiones.get(a).getFecha(), revisiones.get(a).getFecha());
             assertEquals("Prueba de la seccion revision", this.historicoDeRevisiones.get(a).getSeccionPaginaModificada(), revisiones.get(a).getSeccionPaginaModificada());
             assertEquals("Prueba de la descripcion revision", this.historicoDeRevisiones.get(a).getDescripcionDeModificacion(), revisiones.get(a).getDescripcionDeModificacion());
-            
         }
     }
     
@@ -257,6 +256,23 @@ public class SuiteLecturaPlanAcademia {
     public void recuperarEstadoPlan() {
         PlanTrabajoAcademia planObtenido = planAcademiaDAO.buscarPlanTrabajoByID("PLAT-2");
         
-        assertEquals("Prueba recuperar estado", EstadoDeDocumento.EN_EDICION, planObtenido.getEstado());
+        assertEquals("Prueba recuperar estado", EstadoDeDocumento.CONCLUIDO, planObtenido.getEstado());
     }
+    
+    @Test
+    public void recuperarPlanDeCoordinador() {
+        int cantidadEsperada = 1;
+        ArrayList<PlanTrabajoAcademia> planesObtenidos = planAcademiaDAO.buscarPlanTrabajoByCoordinador(12345);
+        
+        assertEquals("Probar obtener planes de coordinador", cantidadEsperada, planesObtenidos.size());
+    }
+    
+    @Test
+    public void recuperarPlanDeCoordinadorEnEdicion() {
+        int cantidadEsperada = 1;
+        ArrayList<PlanTrabajoAcademia> planesObtenidos = planAcademiaDAO.obtenerPlanesEnEdicion(12345);
+        
+        assertEquals("Probar obtener planes de coordinador", cantidadEsperada, planesObtenidos.size());
+    }
+    
 }

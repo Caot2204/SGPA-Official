@@ -1,3 +1,10 @@
+/****************************************************************/
+/* Nombre: Carlos Alberto Onorio Torres.			  */
+/* Fecha de creación:   17/04/2018				  */
+/* Ultima modificación: 18/05/2018				  */
+/* Descripción: Implementar los métodos para el DAO de            */
+/*              AvanceProgramatico.				  */
+/****************************************************************/
 
 package mx.fei.sgpa.dao.avanceprogramatico;
 
@@ -16,14 +23,7 @@ import mx.fei.sgpa.domain.avanceprogramatico.AvancePorUnidad;
 import mx.fei.sgpa.domain.avanceprogramatico.UnidadDePlaneacion;
 
 public class AvanceProgramaticoDAO implements IAvanceProgramaticoDAO{
-    
-    private AvanceProgramatico avanceProgramatico;
-    private ArrayList<AvanceProgramatico> avancesProgramaticos;
-    private ArrayList<UnidadDePlaneacion> unidadesPlaneacionAvanceProgramatico;
-    private ArrayList<AvancePorUnidad> avancesUnidadAvanceProgramatico;
-    private UnidadDePlaneacion unidadPlaneacion;
-    private AvancePorUnidad unidadAvance;
-    
+        
     private String consulta;
     private Connection conexionBD;
     
@@ -64,71 +64,64 @@ public class AvanceProgramaticoDAO implements IAvanceProgramaticoDAO{
     
     @Override
     public boolean guardarUnidadesPlaneacion(String idAvanceProgramatico, ArrayList<UnidadDePlaneacion> unidadesPlaneacion){
-        boolean guardado = false;
+        boolean guardadoRealizado;
         consulta = "INSERT INTO avance_programatico_unidad_planeacion VALUES (?,?)";
         conexionBD = DataBase.getDataBaseConnection();
-        
         try {
-            
             for (UnidadDePlaneacion unidadPlaneacion : unidadesPlaneacion){             
                 PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
                 sentencia.setString(1, idAvanceProgramatico);
                 sentencia.setInt(2, unidadPlaneacion.getUnidad());
                 sentencia.execute();
             }
-            
-            guardado = true;
-            
+            guardadoRealizado = true;
         } 
         catch (SQLException ex) {
+            guardadoRealizado = false;
             Logger.getLogger(AvanceProgramaticoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally{
             DataBase.closeConnection();
         }
         
-        return guardado;
+        return guardadoRealizado;
     }
     
     @Override
     public boolean guardarDetallesUnidadesPlaneacion(String idAvanceProgramatico, ArrayList<UnidadDePlaneacion> unidadesPlaneacion) {
-        boolean guardado = false;
+        boolean guardadoRealizado;
         consulta = "INSERT INTO avance_programatico_detalle_unidad VALUES (?,?,?,?,?,?)";
         conexionBD = DataBase.getDataBaseConnection();
-        
         try {
-            
-            for (UnidadDePlaneacion unidadPlaneacion : unidadesPlaneacion){
-                             
+            for (UnidadDePlaneacion unidadPlaneacion : unidadesPlaneacion){          
                 for (int b = 0; b < unidadPlaneacion.getTemasDesarrollados().size(); b++){
                     PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
                     sentencia.setString(1, idAvanceProgramatico);
                     sentencia.setInt(2, unidadPlaneacion.getUnidad());
                     sentencia.setString(3, unidadPlaneacion.getTemasDesarrollados().get(b));
-                    sentencia.setDate(4, unidadPlaneacion.getFechas().get(b));
+                    sentencia.setString(4, unidadPlaneacion.getRangoFecha());
                     sentencia.setString(5, unidadPlaneacion.getTareasPracticas().get(b));
                     sentencia.setString(6, unidadPlaneacion.getTecnicasDidacticas().get(b));
                     sentencia.execute();   
-                }
-                
+                } 
             }
-            
-            guardado = true;
+            guardadoRealizado = true;
             
         } 
         catch (SQLException ex) {
+            guardadoRealizado = false;
             Logger.getLogger(AvanceProgramaticoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally{
             DataBase.closeConnection();
         }
         
-        return guardado;
+        return guardadoRealizado;
     }
 
     @Override
     public boolean guardarAvancesPorUnidades(String idAvanceProgramatico, ArrayList<AvancePorUnidad> avancesUnidad) {
-        boolean guardado = false;
+        boolean guardadoRealizado;
         consulta = "INSERT INTO avance_programatico_avance_unidad VALUES (?,?,?,?)";
         conexionBD = DataBase.getDataBaseConnection();
         
@@ -141,27 +134,25 @@ public class AvanceProgramaticoDAO implements IAvanceProgramaticoDAO{
                 sentencia.setString(4, unidadAvance.getObservacion());
                 sentencia.execute();
             }
-            guardado = true; 
+            guardadoRealizado = true; 
         } 
         catch (SQLException ex) {
+            guardadoRealizado = false;
             Logger.getLogger(AvanceProgramaticoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally{
             DataBase.closeConnection();
         }
         
-        return guardado;
+        return guardadoRealizado;
     }
 
     @Override
     public AvanceProgramatico buscarAvanceProgramaticoById(String id) {
-        
-        avanceProgramatico = new AvanceProgramatico();
+        AvanceProgramatico avanceProgramatico = new AvanceProgramatico();
         consulta = "SELECT * FROM avance_programatico WHERE Id=?";
         conexionBD = DataBase.getDataBaseConnection();
-        
         try {
-            
             PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
             sentencia.setString(1, id);
             ResultSet resultadoConsulta = sentencia.executeQuery();
@@ -188,19 +179,16 @@ public class AvanceProgramaticoDAO implements IAvanceProgramaticoDAO{
 
     @Override
     public ArrayList<AvanceProgramatico> buscarAvanceProgramaticoByDocente(String idDocente) {
-        
-        avancesProgramaticos = new ArrayList<>();
+        ArrayList<AvanceProgramatico> avancesProgramaticos = new ArrayList<>();
         consulta = "SELECT * FROM avance_programatico WHERE Id_Docente=?";
         conexionBD = DataBase.getDataBaseConnection();
-        
         try {
-            
             PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
             sentencia.setString(1, idDocente);
             ResultSet resultadoConsulta = sentencia.executeQuery();
             
             while (resultadoConsulta.next()){
-                avanceProgramatico = new AvanceProgramatico();
+                AvanceProgramatico avanceProgramatico = new AvanceProgramatico();
                 
                 avanceProgramatico.setId(resultadoConsulta.getString("Id"));
                 avanceProgramatico.setNrc(resultadoConsulta.getInt("NRC"));
@@ -225,8 +213,7 @@ public class AvanceProgramaticoDAO implements IAvanceProgramaticoDAO{
 
     @Override
     public ArrayList<UnidadDePlaneacion> obtenerUnidadesDePlaneacion(String idAvanceProgramatico) {
-        unidadesPlaneacionAvanceProgramatico = new ArrayList<>();
-        
+        ArrayList<UnidadDePlaneacion> unidadesPlaneacionAvanceProgramatico = new ArrayList<>();
         ArrayList<Integer> numerosUnidad = buscarUnidadesPlaneacion(idAvanceProgramatico);
         consulta = "SELECT * FROM avance_programatico_detalle_unidad WHERE Id_Avance_Programatico=? and Unidad=?";
         conexionBD = DataBase.getDataBaseConnection();
@@ -238,9 +225,9 @@ public class AvanceProgramaticoDAO implements IAvanceProgramaticoDAO{
                 sentencia.setInt(2, numerosUnidad.get(a));
                 ResultSet resultadoConsulta = sentencia.executeQuery();
                 
-                unidadPlaneacion = new UnidadDePlaneacion();
+                UnidadDePlaneacion unidadPlaneacion = new UnidadDePlaneacion();
                 ArrayList<String> temasDesarrollados = new ArrayList<>();
-                ArrayList<Date> fechas = new ArrayList<>();
+                String rangoFecha = "";
                 ArrayList<String> tareasPracticas = new ArrayList<>();
                 ArrayList<String> tecnicasDidacticas = new ArrayList<>();
                 
@@ -248,13 +235,13 @@ public class AvanceProgramaticoDAO implements IAvanceProgramaticoDAO{
 
                 while (resultadoConsulta.next()){
                     temasDesarrollados.add(resultadoConsulta.getString("Tema_Desarrollado"));
-                    fechas.add(resultadoConsulta.getDate("Fecha"));
+                    rangoFecha = resultadoConsulta.getString("Fecha");
                     tareasPracticas.add(resultadoConsulta.getString("Tarea_Practica_Realizada"));
                     tecnicasDidacticas.add(resultadoConsulta.getString("Tecnica_Didactica"));
                 }
                 
                 unidadPlaneacion.setTemasDesarrollados(temasDesarrollados);
-                unidadPlaneacion.setFechas(fechas);
+                unidadPlaneacion.setRangoFecha(rangoFecha);
                 unidadPlaneacion.setTareasPracticas(tareasPracticas);
                 unidadPlaneacion.setTecnicasDidacticas(tecnicasDidacticas);
                 
@@ -275,12 +262,9 @@ public class AvanceProgramaticoDAO implements IAvanceProgramaticoDAO{
     
     public ArrayList<Integer> buscarUnidadesPlaneacion(String idAvanceProgramatico){
         ArrayList<Integer> unidades = new ArrayList<>();
-        
         consulta = "SELECT Unidad FROM avance_programatico_unidad_planeacion WHERE Id_Avance_Programatico=?";
         conexionBD = DataBase.getDataBaseConnection();
-        
         try {
-            
             PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
             sentencia.setString(1, idAvanceProgramatico);
             ResultSet resultadoConsulta = sentencia.executeQuery();
@@ -302,23 +286,20 @@ public class AvanceProgramaticoDAO implements IAvanceProgramaticoDAO{
 
     @Override
     public ArrayList<AvancePorUnidad> obtenerAvancesPorUnidad(String idAvanceProgramatico) {
-        avancesUnidadAvanceProgramatico = new ArrayList<>();
-        
+        ArrayList<AvancePorUnidad> avancesPorUnidad = new ArrayList<>();
         consulta = "SELECT * FROM avance_programatico_avance_unidad WHERE Id_Avance_Programatico=?";
         conexionBD = DataBase.getDataBaseConnection();
-        
         try {
-            
             PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
             sentencia.setString(1, idAvanceProgramatico);
             ResultSet resultadoConsulta = sentencia.executeQuery();
             
             while (resultadoConsulta.next()){
-                unidadAvance = new AvancePorUnidad();
+                AvancePorUnidad unidadAvance = new AvancePorUnidad();
                 unidadAvance.setUnidad(resultadoConsulta.getInt("Unidad"));
                 unidadAvance.setPorcentaje(resultadoConsulta.getFloat("Porcentaje_Avance"));
                 unidadAvance.setObservacion(resultadoConsulta.getString("Observacion"));
-                avancesUnidadAvanceProgramatico.add(unidadAvance);
+                avancesPorUnidad.add(unidadAvance);
             }
             
         } 
@@ -329,7 +310,7 @@ public class AvanceProgramaticoDAO implements IAvanceProgramaticoDAO{
             DataBase.closeConnection();
         }
         
-        return avancesUnidadAvanceProgramatico;
+        return avancesPorUnidad;
     }
     
 }

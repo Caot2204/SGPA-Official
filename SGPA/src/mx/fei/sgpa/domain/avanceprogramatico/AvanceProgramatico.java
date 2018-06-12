@@ -1,3 +1,10 @@
+/****************************************************************/
+/* Nombre: Carlos Alberto Onorio Torres.			  */
+/* Fecha de creación:   16/04/2018				  */
+/* Ultima modificación: 24/04/2018				  */
+/* Descripción: Detalles del Formato de Academia Avance           */
+/*              Programatico.                                     */
+/****************************************************************/
 
 package mx.fei.sgpa.domain.avanceprogramatico;
 

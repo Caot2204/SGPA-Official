@@ -1,3 +1,10 @@
+/****************************************************************/
+/* Nombre: Carlos Alberto Onorio Torres.			  */
+/* Fecha de creación:   17/04/2018				  */
+/* Ultima modificación: 17/05/2018				  */
+/* Descripción: Implementacion de los métodos para el DAO de      */
+/*              PlanTrabajoAcademia.				  */
+/****************************************************************/
 
 package mx.fei.sgpa.dao.plantrabajoacademia;
 
@@ -8,7 +15,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import mx.fei.sgpa.dao.academia.AcademiaDAO;
+import mx.fei.sgpa.dao.academico.AcademicoDAO;
 import mx.fei.sgpa.datasource.DataBase;
+import mx.fei.sgpa.domain.Academia;
+import mx.fei.sgpa.domain.Academico;
 import mx.fei.sgpa.domain.EstadoDeDocumento;
 import mx.fei.sgpa.domain.plantrabajoacademia.AccionDeMeta;
 import mx.fei.sgpa.domain.plantrabajoacademia.EEConParcial;
@@ -21,15 +32,15 @@ import mx.fei.sgpa.domain.plantrabajoacademia.PlanTrabajoAcademia;
 import mx.fei.sgpa.domain.plantrabajoacademia.Revision;
 
 public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
-   
-    private ArrayList<PlanTrabajoAcademia> planesAcademia;
-    
+       
     private Connection conexionDB;
     private String consultaSQL;
     private PreparedStatement sentencia;
 
     @Override
-    public boolean guardarPlanTrabajoAcademia(PlanTrabajoAcademia planAcademia) {
+    public boolean guardarPlanTrabajoAcademiaCompleto(PlanTrabajoAcademia planAcademia) {
+        AcademicoDAO academicoDAO = new AcademicoDAO();
+        Academico coordinador = academicoDAO.obtenerAcademico(planAcademia.getNombreCoordinador());
         boolean guardadoRealizado = false;
         String idPlan = planAcademia.getId();
         consultaSQL = "INSERT INTO plan_trabajo_academia values (?,?,?,?,?,?,?,?)";
@@ -41,7 +52,7 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
             sentencia.setString(3, planAcademia.getProgramaEducativo());
             sentencia.setString(4, planAcademia.getPeriodoEscolar());
             sentencia.setString(5, planAcademia.getNombreAcademia());
-            sentencia.setString(6, planAcademia.getNombreCoordinador());
+            sentencia.setInt(6, coordinador.getNumeroPersonal());
             sentencia.setString(7, planAcademia.getObjetivoGeneral());
             sentencia.setString(8, planAcademia.getEstado().name());
             sentencia.execute();
@@ -51,15 +62,75 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
             guardarFormasDeEvaluacion(idPlan, planAcademia.getFormasDeEvaluacion());
             guardarHistoricoDeRevision(idPlan, planAcademia.getHistoricoDeRevisiones());
             guardarFirmaDeAutorizacion(idPlan, planAcademia.getAutorizacion());
+            guardadoRealizado = true;
         } 
         catch (SQLException ex) {
             Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch (NullPointerException excepcion) {
+            eliminarDatosPlan(idPlan);
+            guardadoRealizado = false;
+        }
         finally{
             DataBase.closeConnection();
-            guardadoRealizado = true;
         }
         return guardadoRealizado;
+    }
+    
+    @Override
+    public boolean guardarPlanTrabajoAcademia(PlanTrabajoAcademia planAcademia) {
+        AcademicoDAO academicoDAO = new AcademicoDAO();
+        AcademiaDAO academiaDAO = new AcademiaDAO();
+        Academico coordinador = academicoDAO.obtenerAcademico(planAcademia.getNombreCoordinador());
+        Academia academia = academiaDAO.obtenerAcademiaPorNombre(planAcademia.getNombreAcademia());
+        
+        boolean guardadoRealizado = false;
+        String idPlan = planAcademia.getId();
+        consultaSQL = "INSERT INTO plan_trabajo_academia values (?,?,?,?,?,?,?,?)";
+        conexionDB = DataBase.getDataBaseConnection();
+        try {
+            sentencia = conexionDB.prepareStatement(consultaSQL);
+            sentencia.setString(1, idPlan);
+            sentencia.setDate(2, planAcademia.getFechaAprobacion());
+            sentencia.setString(3, planAcademia.getProgramaEducativo());
+            sentencia.setString(4, planAcademia.getPeriodoEscolar());
+            sentencia.setString(5, academia.getIdAcademia());
+            sentencia.setInt(6, coordinador.getNumeroPersonal());
+            sentencia.setString(7, planAcademia.getObjetivoGeneral());
+            sentencia.setString(8, planAcademia.getEstado().name());
+            sentencia.execute();
+            
+            guardarObjetivosParticulares(idPlan, planAcademia.getObjetivosParticulares());            
+            guardarExamenesParciales(idPlan, planAcademia.getExamenesParciales());
+            guardarFormasDeEvaluacion(idPlan, planAcademia.getFormasDeEvaluacion());
+            
+            guardadoRealizado = true;
+        } 
+        catch (SQLException ex) {
+            Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (NullPointerException excepcion) {
+            eliminarDatosPlan(idPlan);
+            guardadoRealizado = false;
+        }
+        finally{
+            DataBase.closeConnection();
+        }
+        return guardadoRealizado;
+    }
+    
+    @Override
+    public boolean actualizarDatosPlan(PlanTrabajoAcademia planAcademia) {
+        boolean confirmacionGuardado = true;
+        if (planAcademia != null) {
+            if (eliminarDatosPlan(planAcademia.getId())) {
+                guardarPlanTrabajoAcademia(planAcademia);
+            }  
+        }
+        else {
+            confirmacionGuardado = false;
+        }
+        return confirmacionGuardado;
     }
     
     @Override
@@ -75,14 +146,18 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
                 sentencia.setString(3, objetivo.getDescripcion());
                 sentencia.execute();
                 guardarMetasDeObjetivoParticular(idPlanTrabajoAcademia, objetivo.getId(), objetivo.getMetasDeObjetivo());                
-            }           
+            }
+            guardadoRealizado = true;
         } 
         catch (SQLException ex) {
             Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch (NullPointerException excepcion) {
+            eliminarDatosPlan(idPlanTrabajoAcademia);
+            guardadoRealizado = false;            
+        }
         finally{
             DataBase.closeConnection();
-            guardadoRealizado = true;
         }
         return guardadoRealizado;
     }
@@ -101,14 +176,18 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
                 sentencia.setString(4, meta.getDescripcion());
                 sentencia.execute();
                 guardarAccionesDeMeta(idPlanTrabajoAcademia, idObjetivoParticular, meta.getId(), meta.getAccionesDeMeta());
-            }            
+            }
+            guardadoRealizado = true;
         } 
         catch (SQLException ex) {
             Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch (NullPointerException excepcion) {
+            eliminarDatosPlan(idPlanTrabajoAcademia);
+            guardadoRealizado = false;            
+        }
         finally{
             DataBase.closeConnection();
-            guardadoRealizado = true;
         }
         return guardadoRealizado;
     }
@@ -128,14 +207,18 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
                 sentencia.setString(5, accionesDeMeta.get(i).getFechaSemana());
                 sentencia.setString(6, accionesDeMeta.get(i).getFormaOperar());
                 sentencia.execute();
-            }            
+            }
+            guardadoRealizado = true;
         } 
         catch (SQLException ex) {
             Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch (NullPointerException excepcion) {
+            eliminarDatosPlan(idPlanTrabajoAcademia);
+            guardadoRealizado = false;            
+        }
         finally{
             DataBase.closeConnection();
-            guardadoRealizado = true;
         }
         return guardadoRealizado;
     }
@@ -167,14 +250,18 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
                 sentencia.setString(2, eeParcial.getExperienciaEducativa());
                 sentencia.setInt(3, eeParcial.getExamenesParciales().size());
                 sentencia.execute();   
-            }           
+            }
+            guardadoRealizado = true;
         } 
         catch (SQLException ex) {
             Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch (NullPointerException excepcion) {
+            eliminarDatosPlan(idPlanTrabajoAcademia);
+            guardadoRealizado = false;            
+        }
         finally{
             DataBase.closeConnection();
-            guardadoRealizado = true;
         }
         return guardadoRealizado;
     }
@@ -196,14 +283,18 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
                     sentencia.setString(4, temasParcial.get(i));
                     sentencia.execute();                    
                 }
-            }            
+            }
+            guardadoRealizado = true;
         } 
         catch (SQLException ex) {
             Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch (NullPointerException excepcion) {
+            eliminarDatosPlan(idPlanTrabajoAcademia);
+            guardadoRealizado = false;            
+        }
         finally{
             DataBase.closeConnection();
-            guardadoRealizado = true;
         }
         return guardadoRealizado;
     }
@@ -220,14 +311,18 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
                 sentencia.setString(2, formasDeEvaluacion.get(i).getElemento());
                 sentencia.setFloat(3, formasDeEvaluacion.get(i).getPorcentaje());
                 sentencia.execute();
-            }                       
+            }
+            guardadoRealizado = true;
         } 
         catch (SQLException ex) {
             Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch (NullPointerException excepcion) {
+            eliminarDatosPlan(idPlanTrabajoAcademia);
+            guardadoRealizado = false;            
+        }
         finally{
             DataBase.closeConnection();
-            guardadoRealizado = true;
         }
         return guardadoRealizado;
     }
@@ -246,14 +341,18 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
                 sentencia.setString(4, historicoDeRevisiones.get(i).getSeccionPaginaModificada());
                 sentencia.setString(5, historicoDeRevisiones.get(i).getDescripcionDeModificacion());
                 sentencia.execute();
-            }                       
+            }
+            guardadoRealizado = true;
         } 
         catch (SQLException ex) {
             Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch (NullPointerException excepcion) {
+            eliminarDatosPlan(idPlanTrabajoAcademia);
+            guardadoRealizado = false;
+        }
         finally{
             DataBase.closeConnection();
-            guardadoRealizado = true;
         }        
         return guardadoRealizado;
     }
@@ -270,14 +369,19 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
             sentencia.setString(3, firmaDeAutorizacion.getPersonaQueAutorizaPlan());
             sentencia.setDate(4, firmaDeAutorizacion.getFechaAutorizacion());
             sentencia.setDate(5, firmaDeAutorizacion.getFechaEntradaEnVigor());
-            sentencia.execute();           
+            sentencia.execute();
+            
+            guardadoRealizado = true;
         } 
         catch (SQLException ex) {
             Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch (NullPointerException excepcion) {
+            eliminarDatosPlan(idPlanTrabajoAcademia);
+            guardadoRealizado = false;            
+        }
         finally{
             DataBase.closeConnection();
-            guardadoRealizado = true;
         }
         return guardadoRealizado;
     }
@@ -285,6 +389,7 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
     @Override
     public PlanTrabajoAcademia buscarPlanTrabajoByID(String idPlanTrabajoAcademia) {
         PlanTrabajoAcademia planAcademia = new PlanTrabajoAcademia();
+        AcademiaDAO academiaDAO = new AcademiaDAO();
         consultaSQL = "SELECT * from plan_trabajo_academia where Id=?";
         conexionDB = DataBase.getDataBaseConnection();
         try {
@@ -297,15 +402,25 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
                 planAcademia.setFechaAprobacion(resultadoSentencia.getDate("Fecha_Aprobacion"));
                 planAcademia.setProgramaEducativo(resultadoSentencia.getString("Programa_Educativo"));
                 planAcademia.setPeriodoEscolar(resultadoSentencia.getString("Periodo_Escolar"));
-                planAcademia.setNombreAcademia(resultadoSentencia.getString("Id_Academia"));
+                Academia academia = academiaDAO.obtenerAcademia(resultadoSentencia.getString("Id_Academia"));
+                planAcademia.setNombreAcademia(academia.getNombreAcademia());
                 planAcademia.setNombreCoordinador(resultadoSentencia.getString("Id_Coordinador"));
                 planAcademia.setObjetivoGeneral(resultadoSentencia.getString("Objetivo_General"));
                 planAcademia.setEstado(EstadoDeDocumento.valueOf(resultadoSentencia.getString("Estado")));
+                
+                planAcademia.setObjetivosParticulares(obtenerObjetivosParticulares(planAcademia.getId()));
+                planAcademia.setExamenesParciales(obtenerEEsConExamenesParciales(planAcademia.getId()));
+                planAcademia.setFormasDeEvaluacion(obtenerFormasDeEvaluacion(planAcademia.getId()));
+                planAcademia.setHistoricoDeRevisiones(obtenerHistoricoDeRevision(planAcademia.getId()));
+                planAcademia.setAutorizacion(obtenerFirmaAutorizacion(planAcademia.getId()));
             }
             
         } 
         catch (SQLException ex) {
             Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (NullPointerException excepcion) {
+            
         }
         finally{
             DataBase.closeConnection();
@@ -314,8 +429,107 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
     }
 
     @Override
-    public ArrayList<PlanTrabajoAcademia> buscarPlanTrabajoByCoordinador(String idCoordinador) {
-        return this.planesAcademia;
+    public ArrayList<PlanTrabajoAcademia> buscarPlanTrabajoByCoordinador(int idCoordinador) {
+        ArrayList<PlanTrabajoAcademia> planesAcademiaDeCoordinador = new ArrayList<>();
+        PlanTrabajoAcademia planAcademia;
+        AcademicoDAO academicoDAO;
+        AcademiaDAO academiaDAO = new AcademiaDAO();
+        consultaSQL = "SELECT * from plan_trabajo_academia where Id_Coordinador=? and Estado=?";
+        conexionDB = DataBase.getDataBaseConnection();
+        try {
+            sentencia = conexionDB.prepareStatement(consultaSQL);
+            sentencia.setInt(1, idCoordinador);
+            sentencia.setString(2, "CONCLUIDO");
+            ResultSet resultadoSentencia = sentencia.executeQuery();
+            
+            while (resultadoSentencia.next()){
+                planAcademia = new PlanTrabajoAcademia();
+                academicoDAO = new AcademicoDAO();
+                academiaDAO = new AcademiaDAO();
+                Academico coordinador = academicoDAO.obtenerAcademico(idCoordinador);
+                Academia academia = academiaDAO.obtenerAcademia(resultadoSentencia.getString("Id_Academia"));
+                
+                planAcademia.setId(resultadoSentencia.getString("Id"));
+                planAcademia.setFechaAprobacion(resultadoSentencia.getDate("Fecha_Aprobacion"));
+                planAcademia.setProgramaEducativo(resultadoSentencia.getString("Programa_Educativo"));
+                planAcademia.setPeriodoEscolar(resultadoSentencia.getString("Periodo_Escolar"));
+                planAcademia.setNombreAcademia(academia.getNombreAcademia());
+                planAcademia.setNombreCoordinador(coordinador.getNombreAcademico());
+                planAcademia.setObjetivoGeneral(resultadoSentencia.getString("Objetivo_General"));
+                planAcademia.setEstado(EstadoDeDocumento.valueOf(resultadoSentencia.getString("Estado")));
+                
+                planAcademia.setObjetivosParticulares(obtenerObjetivosParticulares(planAcademia.getId()));
+                planAcademia.setExamenesParciales(obtenerEEsConExamenesParciales(planAcademia.getId()));
+                planAcademia.setFormasDeEvaluacion(obtenerFormasDeEvaluacion(planAcademia.getId()));
+                planAcademia.setHistoricoDeRevisiones(obtenerHistoricoDeRevision(planAcademia.getId()));
+                planAcademia.setAutorizacion(obtenerFirmaAutorizacion(planAcademia.getId()));
+                
+                planesAcademiaDeCoordinador.add(planAcademia);
+            }
+            
+        } 
+        catch (SQLException ex) {
+            Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (NullPointerException excepcion) {
+            
+        }
+        finally{
+            DataBase.closeConnection();
+        }
+        return planesAcademiaDeCoordinador;
+    }
+    
+    @Override
+    public ArrayList<PlanTrabajoAcademia> obtenerPlanesEnEdicion(int idCoordinador) {
+        ArrayList<PlanTrabajoAcademia> planesAcademiaDeCoordinador = new ArrayList<>();
+        PlanTrabajoAcademia planAcademia;
+        AcademicoDAO academicoDAO;
+        AcademiaDAO academiaDAO;
+        consultaSQL = "SELECT * from plan_trabajo_academia where Id_Coordinador=? and Estado=?";
+        conexionDB = DataBase.getDataBaseConnection();
+        try {
+            sentencia = conexionDB.prepareStatement(consultaSQL);
+            sentencia.setInt(1, idCoordinador);
+            sentencia.setString(2, "EN_EDICION");
+            ResultSet resultadoSentencia = sentencia.executeQuery();
+            
+            while (resultadoSentencia.next()){
+                planAcademia = new PlanTrabajoAcademia();
+                academicoDAO = new AcademicoDAO();
+                academiaDAO = new AcademiaDAO();
+                Academico coordinador = academicoDAO.obtenerAcademico(idCoordinador);
+                Academia academia = academiaDAO.obtenerAcademia(resultadoSentencia.getString("Id_Academia"));
+                
+                planAcademia.setId(resultadoSentencia.getString("Id"));
+                planAcademia.setFechaAprobacion(resultadoSentencia.getDate("Fecha_Aprobacion"));
+                planAcademia.setProgramaEducativo(resultadoSentencia.getString("Programa_Educativo"));
+                planAcademia.setPeriodoEscolar(resultadoSentencia.getString("Periodo_Escolar"));
+                planAcademia.setNombreAcademia(academia.getNombreAcademia());
+                planAcademia.setNombreCoordinador(coordinador.getNombreAcademico());
+                planAcademia.setObjetivoGeneral(resultadoSentencia.getString("Objetivo_General"));
+                planAcademia.setEstado(EstadoDeDocumento.valueOf(resultadoSentencia.getString("Estado")));
+                
+                planAcademia.setObjetivosParticulares(obtenerObjetivosParticulares(planAcademia.getId()));
+                planAcademia.setExamenesParciales(obtenerEEsConExamenesParciales(planAcademia.getId()));
+                planAcademia.setFormasDeEvaluacion(obtenerFormasDeEvaluacion(planAcademia.getId()));
+                planAcademia.setHistoricoDeRevisiones(obtenerHistoricoDeRevision(planAcademia.getId()));
+                planAcademia.setAutorizacion(obtenerFirmaAutorizacion(planAcademia.getId()));
+                
+                planesAcademiaDeCoordinador.add(planAcademia);
+            }
+            
+        } 
+        catch (SQLException ex) {
+            Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (NullPointerException excepcion) {
+            
+        }
+        finally{
+            DataBase.closeConnection();
+        }
+        return planesAcademiaDeCoordinador;
     }
     
     @Override
@@ -340,6 +554,9 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
         } 
         catch (SQLException ex) {
             Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (NullPointerException excepcion) {
+            
         }
         finally{
             DataBase.closeConnection();
@@ -370,6 +587,9 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
         } 
         catch (SQLException ex) {
             Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (NullPointerException excepcion) {
+            
         }
         finally{
             DataBase.closeConnection();
@@ -402,6 +622,9 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
         catch (SQLException ex) {
             Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch (NullPointerException excepcion) {
+            
+        }
         finally{
             DataBase.closeConnection();
         }
@@ -411,7 +634,44 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
     @Override
     public ArrayList<EEConParcial> obtenerEEsConExamenesParciales(String idPlanTrabajoAcademia) {
         ArrayList<EEConParcial> eesConParciales = new ArrayList<>();
+        ArrayList<ExamenParcial> examenesDeEE;
+        consultaSQL = "SELECT EE, Cantidad_Examenes_Parciales from plan_trabajo_academia_examen_parcial_ee where Id_Plan_Academia=?";
+        conexionDB = DataBase.getDataBaseConnection();
+        try {
+            sentencia = conexionDB.prepareStatement(consultaSQL);
+            sentencia.setString(1, idPlanTrabajoAcademia);
+            ResultSet resultadoConsulta = sentencia.executeQuery();
+            
+            while (resultadoConsulta.next()){
+                EEConParcial eeConParcial = new EEConParcial();
+                examenesDeEE = new ArrayList<>();
                 
+                eeConParcial.setExperienciaEducativa(resultadoConsulta.getString("EE"));
+                
+                int cantidadParciales = obtenerCantidadExamenesParcialesDeEE(idPlanTrabajoAcademia, eeConParcial.getExperienciaEducativa());
+                
+                for (int a = 1; a <= cantidadParciales; a++){
+                    ExamenParcial examen = new ExamenParcial();
+                    examen.setId(a);
+                    examen.setTemasDeParcial(obtenerTemasDeParcialDeEE(idPlanTrabajoAcademia, eeConParcial.getExperienciaEducativa(), a));
+                    examenesDeEE.add(examen);
+                }
+                
+                eeConParcial.setExamenesParciales(examenesDeEE);
+                
+                eesConParciales.add(eeConParcial);
+            }
+            
+        } 
+        catch (SQLException ex) {
+            Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (NullPointerException excepcion) {
+            
+        }
+        finally{
+            DataBase.closeConnection();
+        }                
         return eesConParciales;
     }
     
@@ -431,6 +691,9 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
         } 
         catch (SQLException ex) {
             Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (NullPointerException excepcion) {
+            
         }
         finally{
             DataBase.closeConnection();
@@ -457,6 +720,9 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
         } 
         catch (SQLException ex) {
             Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (NullPointerException excepcion) {
+            
         }
         finally{
             DataBase.closeConnection();
@@ -485,6 +751,9 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
         } 
         catch (SQLException ex) {
             Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (NullPointerException excepcion) {
+            
         }
         finally{
             DataBase.closeConnection();
@@ -518,6 +787,9 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
         catch (SQLException ex) {
             Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch (NullPointerException excepcion) {
+            
+        }
         finally{
             DataBase.closeConnection();
         }
@@ -545,10 +817,43 @@ public class PlanTrabajoAcademiaDAO implements IPlanTrabajoAcademiaDAO{
         catch (SQLException ex) {
             Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch (NullPointerException excepcion) {
+                        
+        }
         finally{
             DataBase.closeConnection();
         }
         return firmaDeAutorizacion;
+    }
+    
+    @Override
+    public boolean eliminarDatosPlan(String idPlanAcademia) {
+        boolean confirmacionEliminado = false;
+        conexionDB = DataBase.getDataBaseConnection();
+        ArrayList<String> consultasSQL = new ArrayList<>();
+        consultasSQL.add("DELETE FROM plan_trabajo_academia_objetivo_particular where Id_Plan_Academia=?");        
+        consultasSQL.add("DELETE FROM plan_trabajo_academia_objetivo_particular_meta where Id_Plan_Academia=?");
+        consultasSQL.add("DELETE FROM plan_trabajo_academia_objetivo_particular_meta_accion where Id_Plan_Academia=?");
+        consultasSQL.add("DELETE FROM plan_trabajo_academia_examen_parcial_ee where Id_Plan_Academia=?");
+        consultasSQL.add("DELETE FROM plan_trabajo_academia_examen_parcial_tema where Id_Plan_Academia=?");
+        consultasSQL.add("DELETE FROM plan_trabajo_academia_forma_evaluacion where Id_Plan_Academia=?");
+        consultasSQL.add("DELETE FROM plan_trabajo_academia_historico_de_revision where Id_Plan_Academia=?");
+        consultasSQL.add("DELETE FROM plan_trabajo_academia_autorizacion where Id_Plan_Academia=?");
+        consultasSQL.add("DELETE FROM plan_trabajo_academia where Id=?");
+        
+        for (int a = 0; a < consultasSQL.size(); a++){
+            try {
+                PreparedStatement sentenciaSQL = conexionDB.prepareStatement(consultasSQL.get(a));
+                sentenciaSQL.setString(1, idPlanAcademia);
+                sentenciaSQL.execute();
+                confirmacionEliminado = true;
+            } 
+            catch (SQLException ex) {
+                Logger.getLogger(PlanTrabajoAcademiaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }            
+        }
+        DataBase.closeConnection();
+        return confirmacionEliminado;
     }
     
 }

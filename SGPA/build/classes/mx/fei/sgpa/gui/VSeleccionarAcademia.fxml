@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="198.0" prefWidth="628.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="mx.fei.sgpa.gui.VSeleccionarAcademiaController">
+   <children>
+      <Separator layoutX="15.0" layoutY="65.0" prefHeight="6.0" prefWidth="593.0" />
+      <Label layoutX="16.0" layoutY="25.0" text="Seleccione una Academia para elaborar el Plan de Trabajo de Academia:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="buttonCrearPlan" layoutX="221.0" layoutY="144.0" mnemonicParsing="false" onAction="#crearPlanAcademia" prefHeight="25.0" prefWidth="162.0" text="Crear Plan">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <ComboBox fx:id="comboBoxAcademias" layoutX="194.0" layoutY="86.0" prefHeight="36.0" prefWidth="215.0" promptText="Academias" />
+   </children>
+</AnchorPane>

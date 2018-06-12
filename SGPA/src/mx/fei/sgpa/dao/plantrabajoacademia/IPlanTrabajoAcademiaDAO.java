@@ -1,3 +1,11 @@
+/****************************************************************/
+/* Nombre: Carlos Alberto Onorio Torres.			  */
+/* Fecha de creación:   16/04/2018				  */
+/* Ultima modificación: 07/05/2018				  */
+/* Descripción: Definir la interfaz de métodos para el DAO de     */
+/*              PlanTrabajoAcademia.				  */
+/****************************************************************/
+
 package mx.fei.sgpa.dao.plantrabajoacademia;
 
 import java.util.ArrayList;
@@ -12,6 +20,8 @@ import mx.fei.sgpa.domain.plantrabajoacademia.PlanTrabajoAcademia;
 import mx.fei.sgpa.domain.plantrabajoacademia.Revision;
 
 public interface IPlanTrabajoAcademiaDAO {
+    boolean actualizarDatosPlan(PlanTrabajoAcademia planAcademia);
+    boolean guardarPlanTrabajoAcademiaCompleto(PlanTrabajoAcademia planAcademia);
     boolean guardarPlanTrabajoAcademia(PlanTrabajoAcademia planAcademia);
     boolean guardarObjetivosParticulares(String idPlanTrabajoAcademia, ArrayList<ObjetivoParticular> objetivosParticulares);
     boolean guardarMetasDeObjetivoParticular(String idPlanTrabajoAcademia, String idObjetivoParticular, ArrayList<MetaDeObjetivo> metasDeObjetivo);
@@ -22,8 +32,10 @@ public interface IPlanTrabajoAcademiaDAO {
     boolean guardarFormasDeEvaluacion(String idPlanTrabajoAcademia, ArrayList<FormaDeEvaluacion> formasDeEvaluacion);
     boolean guardarHistoricoDeRevision(String idPlanTrabajoAcademia, ArrayList<Revision> historicoDeRevisiones);
     boolean guardarFirmaDeAutorizacion(String idPlanTrabajoAcademia, FirmaAutorizacion firmaDeAutorizacion);
+    boolean eliminarDatosPlan(String idPlanAcademia);
     PlanTrabajoAcademia buscarPlanTrabajoByID(String idPlanTrabajoAcademia);
-    ArrayList<PlanTrabajoAcademia> buscarPlanTrabajoByCoordinador(String idCoordinador);
+    ArrayList<PlanTrabajoAcademia> buscarPlanTrabajoByCoordinador(int idCoordinador);
+    ArrayList<PlanTrabajoAcademia> obtenerPlanesEnEdicion(int numeroDePersonal);
     ArrayList<ObjetivoParticular> obtenerObjetivosParticulares(String idPlanTrabajoAcademia);
     ArrayList<MetaDeObjetivo> obtenerMetasDeObjetivo(String idPlanTrabajoAcademia, String idObjetivoParticular);
     ArrayList<AccionDeMeta> obtenerAccionesDeMeta(String idPlanTrabajoAcademia, String idObjetivoParticular, String idMeta);

@@ -1,3 +1,10 @@
+/****************************************************************/
+/* Nombre: Carlos Alberto Onorio Torres.			  */
+/* Fecha de creación:   16/04/2018				  */
+/* Ultima modificación: 08/05/2018				  */
+/* Descripción: Definir la clase para obtener conexión con la     */
+/*              base de datos.				          */
+/****************************************************************/
 
 package mx.fei.sgpa.datasource;
 

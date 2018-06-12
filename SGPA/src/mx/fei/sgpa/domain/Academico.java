@@ -1,4 +1,3 @@
-
 package mx.fei.sgpa.domain;
 
 public class Academico {

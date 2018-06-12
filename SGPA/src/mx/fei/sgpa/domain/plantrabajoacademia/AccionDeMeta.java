@@ -1,3 +1,9 @@
+/****************************************************************/
+/* Nombre: Carlos Alberto Onorio Torres.			  */
+/* Fecha de creación:   24/04/2018				  */
+/* Ultima modificación: 25/05/2018				  */
+/* Descripción: Detalles de un Accion de una Meta.                */
+/****************************************************************/
 
 package mx.fei.sgpa.domain.plantrabajoacademia;
 

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="617.0" prefWidth="1097.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="mx.fei.sgpa.gui.VFormularioAvanceProgramaticoController">
+   <children>
+      <ImageView fitHeight="56.0" fitWidth="58.0" layoutX="18.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resource/contact-icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="82.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resource/notification.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="123.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resource/calendar.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="82.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resource/exit.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="123.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resource/configuration.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="884.0" layoutY="24.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" text="Guardar">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="993.0" layoutY="23.0" mnemonicParsing="false" text="Regresar">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <ScrollPane layoutX="18.0" layoutY="78.0" prefHeight="514.0" prefWidth="1059.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="736.0" prefWidth="1029.0">
+               <children>
+                  <TitledPane animated="false" layoutX="16.0" layoutY="166.0" prefHeight="107.0" prefWidth="1011.0" text="Objetivo General:">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="119.0" prefWidth="739.0">
+                           <children>
+                              <TextArea layoutX="14.0" layoutY="5.0" prefHeight="70.0" prefWidth="977.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </TitledPane>
+                  <TitledPane animated="false" layoutX="17.0" layoutY="14.0" prefHeight="137.0" prefWidth="1008.0" text="Detalles del Curso: NRC NOMBREEXPERIENCIA">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="166.0" prefWidth="739.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="14.0" text="Programa Educativo:" />
+                              <TextField layoutX="130.0" layoutY="10.0" prefHeight="25.0" prefWidth="301.0" />
+                              <TextField layoutX="502.0" layoutY="10.0" prefHeight="25.0" prefWidth="75.0" />
+                              <Label layoutX="450.0" layoutY="14.0" text="Bloque:" />
+                              <Label layoutX="598.0" layoutY="14.0" text="Sección:" />
+                              <TextField layoutX="650.0" layoutY="10.0" prefHeight="25.0" prefWidth="75.0" />
+                              <TextField layoutX="85.0" layoutY="56.0" prefHeight="25.0" prefWidth="347.0" />
+                              <Label layoutX="14.0" layoutY="60.0" text="Académico:" />
+                              <Label layoutX="750.0" layoutY="14.0" text="Periodo Escolar:" />
+                              <TextField layoutX="845.0" layoutY="10.0" prefHeight="25.0" prefWidth="147.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </TitledPane>
+                  <TitledPane animated="false" layoutX="15.0" layoutY="290.0" prefHeight="206.0" prefWidth="1013.0" text="Planeación:">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView prefHeight="200.0" prefWidth="1012.0">
+                                <columns>
+                                  <TableColumn prefWidth="50.0" text="Unidad" />
+                                  <TableColumn maxWidth="500.0" prefWidth="300.0" text="Temas Desarrollados" />
+                                    <TableColumn prefWidth="90.0" text="Fechas" />
+                                    <TableColumn prefWidth="270.0" text="Tareas y practicas realizadas por los alumnos" />
+                                    <TableColumn prefWidth="300.0" text="Técnica didáctica utilizada para desarrollar el tema" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+                  <TitledPane animated="false" layoutX="15.0" layoutY="520.0" prefHeight="206.0" prefWidth="1014.0" text="Avance">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView prefHeight="200.0" prefWidth="1012.0">
+                                 <columns>
+                                    <TableColumn prefWidth="75.0" text="Unidad" />
+                                    <TableColumn prefWidth="75.0" text="\% de avance" />
+                                    <TableColumn prefWidth="862.0" text="Observaciones" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </TitledPane>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

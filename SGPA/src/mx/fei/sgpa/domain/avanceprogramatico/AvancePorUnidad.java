@@ -1,3 +1,10 @@
+/****************************************************************/
+/* Nombre: Carlos Alberto Onorio Torres.			  */
+/* Fecha de creación:   16/04/2018				  */
+/* Ultima modificación: 08/05/2018				  */
+/* Descripción: Detalles de un avance por unidad contenido en un  */
+/*              AvanceProgramatico.				  */
+/****************************************************************/
 
 package mx.fei.sgpa.domain.avanceprogramatico;
 
