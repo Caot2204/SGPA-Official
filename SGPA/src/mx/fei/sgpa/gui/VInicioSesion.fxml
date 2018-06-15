@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="290.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.fei.sgpa.gui.VInicioSesionController">
+   <children>
+      <TextField fx:id="textFieldNombreUsuario" layoutX="183.0" layoutY="96.0" prefHeight="25.0" prefWidth="211.0" promptText="Nombre de usuario" />
+      <PasswordField fx:id="passwordFieldUsuario" layoutX="183.0" layoutY="145.0" prefHeight="25.0" prefWidth="211.0" promptText="Contraseña" />
+      <Button layoutX="246.0" layoutY="191.0" mnemonicParsing="false" onAction="#iniciarSesion" text="Iniciar sesión" />
+      <Label layoutX="223.0" layoutY="268.0" text="Facultad de Estadística e Informática" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="20.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resource/icono-uv.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="20.0" layoutY="14.0" prefHeight="40.0" prefWidth="406.0" text="Sistema para la Gestión de Procesos de Academia">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

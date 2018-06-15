@@ -18,11 +18,11 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="166.0" prefWidth="739.0">
                            <children>
-                              <Label layoutX="290.0" layoutY="24.0" text="Programa Educativo:" />
+                              <Label layoutX="280.0" layoutY="24.0" text="Programa Educativo (*):" />
                               <TextField fx:id="textFieldProgramaEducativo" layoutX="405.0" layoutY="20.0" prefHeight="25.0" prefWidth="312.0" />
                               <TextField fx:id="textFieldNombreCoordinador" editable="false" layoutX="585.0" layoutY="65.0" prefHeight="25.0" prefWidth="406.0" />
                               <Label layoutX="505.0" layoutY="69.0" text="Coordinador:" />
-                              <Label layoutX="748.0" layoutY="24.0" text="Periodo Escolar:" />
+                              <Label layoutX="745.0" layoutY="24.0" text="Periodo Escolar(*):" />
                               <TextField fx:id="textFieldPeriodoEscolar" layoutX="842.0" layoutY="20.0" prefHeight="25.0" prefWidth="147.0" />
                               <Label layoutX="14.0" layoutY="69.0" text="Academia:" />
                               <TextField fx:id="textFieldNombreAcademia" editable="false" layoutX="94.0" layoutY="65.0" prefHeight="25.0" prefWidth="383.0" />
@@ -32,7 +32,7 @@
                         </AnchorPane>
                      </content>
                   </TitledPane>
-                  <TitledPane animated="false" layoutX="16.0" layoutY="166.0" prefHeight="107.0" prefWidth="1011.0" text="Objetivo General:">
+                  <TitledPane animated="false" layoutX="16.0" layoutY="166.0" prefHeight="107.0" prefWidth="1011.0" text="Objetivo General (*):">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="119.0" prefWidth="739.0">
                            <children>
@@ -51,7 +51,7 @@
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="473.0" prefWidth="1013.0">
                                              <children>
-                                                <Label layoutX="16.0" layoutY="18.0" text="Descripción objetivo particular:" />
+                                                <Label layoutX="12.0" layoutY="18.0" text="Descripción objetivo particular(*):" />
                                                 <TextField fx:id="textFieldPrimerObjetivoParticular" layoutX="188.0" layoutY="14.0" prefHeight="25.0" prefWidth="809.0" />
                                                 <TabPane layoutX="16.0" layoutY="75.0" prefHeight="403.0" prefWidth="981.0" tabClosingPolicy="UNAVAILABLE">
                                                   <tabs>
@@ -59,7 +59,7 @@
                                                       <content>
                                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="365.0" prefWidth="981.0">
                                                                <children>
-                                                                  <Label layoutX="11.0" layoutY="22.0" text="Descripción meta:" />
+                                                                  <Label layoutX="9.0" layoutY="22.0" text="Descripción meta (*):" />
                                                                   <TextField fx:id="textFieldPrimerMeta" layoutX="119.0" layoutY="18.0" prefHeight="25.0" prefWidth="850.0" />
                                                                   <TableView fx:id="tableViewAccionesMeta" layoutY="64.0" prefHeight="242.0" prefWidth="981.0">
                                                                     <columns>

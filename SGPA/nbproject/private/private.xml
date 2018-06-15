@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Carlos%20Onorio/Documents/NetBeansProjects/SGPA/src/mx/fei/sgpa/gui/AdministradorElaboracionPlanTrabajoAcademia.java</file>
-            <file>file:/C:/Users/Carlos%20Onorio/Documents/NetBeansProjects/SGPA/src/mx/fei/sgpa/gui/VPlanTrabajoAcademiaController.java</file>
+            <file>file:/C:/Users/Carlos%20Onorio/Documents/NetBeansProjects/SGPA/test/mx/fei/sgpa/dao/plantrabajoacademia/suitepruebas/SuiteLecturaPlanAcademia.java</file>
+            <file>file:/C:/Users/Carlos%20Onorio/Documents/NetBeansProjects/SGPA/src/mx/fei/sgpa/dao/academico/AcademicoDAO.java</file>
+            <file>file:/C:/Users/Carlos%20Onorio/Documents/NetBeansProjects/SGPA/test/mx/fei/sgpa/dao/plantrabajoacademia/suitepruebas/SuiteGuardadoPlanAcademia.java</file>
             <file>file:/C:/Users/Carlos%20Onorio/Documents/NetBeansProjects/SGPA/src/mx/fei/sgpa/dao/plantrabajoacademia/PlanTrabajoAcademiaDAO.java</file>
-            <file>file:/C:/Users/Carlos%20Onorio/Documents/NetBeansProjects/SGPA/src/mx/fei/sgpa/gui/VSGPAPrincipalController.java</file>
-            <file>file:/C:/Users/Carlos%20Onorio/Documents/NetBeansProjects/SGPA/src/mx/fei/sgpa/gui/AdministradorEdicionPlanTrabajoAcademia.java</file>
+            <file>file:/C:/Users/Carlos%20Onorio/Documents/NetBeansProjects/SGPA/src/mx/fei/sgpa/dao/plantrabajoacademia/BarricadaPlanTrabajoAcademiaDAO.java</file>
         </group>
     </open-files>
 </project-private>

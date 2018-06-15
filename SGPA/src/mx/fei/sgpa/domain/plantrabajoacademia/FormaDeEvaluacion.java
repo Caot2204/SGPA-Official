@@ -8,6 +8,9 @@
 
 package mx.fei.sgpa.domain.plantrabajoacademia;
 
+/**
+ * Detalles de las Formas de Evaluacion del Formato de Academia PlanTrabajoAcademia
+ */
 public class FormaDeEvaluacion {
     private String elemento;
     private float porcentaje;

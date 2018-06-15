@@ -1,0 +1,10 @@
+mx.fei.sgpa.dao.academia
+mx.fei.sgpa.dao.academico
+mx.fei.sgpa.dao.cuentadeusuario
+mx.fei.sgpa.dao.plantrabajoacademia
+mx.fei.sgpa.datasource
+mx.fei.sgpa.domain
+mx.fei.sgpa.domain.cuentausuario
+mx.fei.sgpa.domain.plantrabajoacademia
+mx.fei.sgpa.gui
+mx.fei.sgpa.gui.adaptadorestablasclases

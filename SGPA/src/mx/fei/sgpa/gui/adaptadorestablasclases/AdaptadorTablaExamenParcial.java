@@ -9,10 +9,13 @@ package mx.fei.sgpa.gui.adaptadorestablasclases;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ * Detalles de un ExamenParcial en tableview
+ */
 public class AdaptadorTablaExamenParcial {
     
-    private SimpleIntegerProperty numeroParcial = new SimpleIntegerProperty();
-    private SimpleStringProperty temaDeParcial = new SimpleStringProperty();
+    private final SimpleIntegerProperty numeroParcial = new SimpleIntegerProperty();
+    private final SimpleStringProperty temaDeParcial = new SimpleStringProperty();
 
     public int getNumeroParcial() {
         return numeroParcial.get();

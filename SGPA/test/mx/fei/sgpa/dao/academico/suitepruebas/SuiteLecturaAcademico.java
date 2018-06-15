@@ -24,7 +24,7 @@ public class SuiteLecturaAcademico {
         academicoEsperado.setNumeroPersonal(203910);
         academicoEsperado.setNombreAcademico("Juan Carlos Pérez");
         academicoEsperado.setGradoEstudios("Lic. en Ingeniería de Software");
-        academicoEsperado.setRolAcademico(RolAcademico.docente);
+        academicoEsperado.setRolAcademico(RolAcademico.DOCENTE);
     }
     
     @Test

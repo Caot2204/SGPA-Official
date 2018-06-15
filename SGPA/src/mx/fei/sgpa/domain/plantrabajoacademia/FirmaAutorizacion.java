@@ -10,6 +10,9 @@ package mx.fei.sgpa.domain.plantrabajoacademia;
 
 import java.sql.Date;
 
+/**
+ * Detalles del firma de Autorización del formato PlanTrabajoAcademia
+ */
 public class FirmaAutorizacion {
     private String personaQueProponePlan;
     private String personaQueAutorizaPlan;

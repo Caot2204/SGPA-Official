@@ -10,21 +10,32 @@ import java.util.ArrayList;
 import mx.fei.sgpa.dao.academia.AcademiaDAO;
 import mx.fei.sgpa.dao.academico.AcademicoDAO;
 
+/**
+ * Detalles de una Academia de la Universidad Veracruzana
+ */
 public class Academia {
-    String idAcademia;
-    String nombreAcademia;
-    int coordinadorAcademia;
+    private String idAcademia;
+    private String nombreAcademia;
+    private int coordinadorAcademia;
     
     public Academia() {
         
     }
     
+    /**
+     * Obtiene el Nombre del Academico en base al número de personal del mismo
+     * @return Nombre del Coordinador de la Academia
+     */
     public String obtenerNombreDeCoordinador() {
         AcademicoDAO academicoDAO = new AcademicoDAO();
         Academico coordinador = academicoDAO.obtenerAcademico(coordinadorAcademia);
         return coordinador.getNombreAcademico();
     }
     
+    /**
+     * Obtiene los Académicos pertenecientes a esta Academia
+     * @return Lista de Academico
+     */
     public ArrayList<Academico> obtenerIntegrantes() {
         AcademiaDAO academiaDAO = new AcademiaDAO();
         return academiaDAO.obtenerIntegrantesAcademia(idAcademia);

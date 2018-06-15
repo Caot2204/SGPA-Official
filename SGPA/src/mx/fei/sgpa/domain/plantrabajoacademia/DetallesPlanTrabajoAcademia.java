@@ -2,13 +2,16 @@
 /* Nombre: Carlos Alberto Onorio Torres.			  */
 /* Fecha de creación:   09/06/2018				  */
 /* Ultima modificación: 09/06/2018				  */
-/* Descripción: Detalles general del Formato de Academia          */
+/* Descripción: Detalles generales del Formato de Academia        */
 /*              PlanTrabajoAcademia.				  */
 /****************************************************************/
 package mx.fei.sgpa.domain.plantrabajoacademia;
 
 import java.sql.Date;
 
+/**
+ * Detalles generales del Formato de Academia PlanTrabajoAcademia
+ */
 public class DetallesPlanTrabajoAcademia {
     
     private Date fechaAprobacion;

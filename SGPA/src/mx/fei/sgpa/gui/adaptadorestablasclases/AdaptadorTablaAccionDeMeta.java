@@ -8,11 +8,14 @@ package mx.fei.sgpa.gui.adaptadorestablasclases;
 
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ * Detalles de una AccionDeMeta en tableview
+ */
 public class AdaptadorTablaAccionDeMeta {
     
-    private SimpleStringProperty descripcionAccion = new SimpleStringProperty();
-    private SimpleStringProperty fechaSemana = new SimpleStringProperty();
-    private SimpleStringProperty formaOperar = new SimpleStringProperty();
+    private final SimpleStringProperty descripcionAccion = new SimpleStringProperty();
+    private final SimpleStringProperty fechaSemana = new SimpleStringProperty();
+    private final SimpleStringProperty formaOperar = new SimpleStringProperty();
 
     public String getDescripcionAccion() {
         return descripcionAccion.get();

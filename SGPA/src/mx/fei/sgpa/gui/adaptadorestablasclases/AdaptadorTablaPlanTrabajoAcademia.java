@@ -8,11 +8,14 @@ package mx.fei.sgpa.gui.adaptadorestablasclases;
 
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ * Detalles de un PlanTrabajoAcademia en tableview
+ */
 public class AdaptadorTablaPlanTrabajoAcademia {
     
     private String idPlan;
-    private SimpleStringProperty academia = new SimpleStringProperty();
-    private SimpleStringProperty periodo = new SimpleStringProperty();
+    private final SimpleStringProperty academia = new SimpleStringProperty();
+    private final SimpleStringProperty periodo = new SimpleStringProperty();
 
     public String getId() {
         return idPlan;

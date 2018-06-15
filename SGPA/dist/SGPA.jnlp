@@ -7,8 +7,10 @@
     <offline-allowed/>
   </information>
   <resources>
-    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="SGPA.jar" size="176462" download="eager" />
+    <j2se version="1.6+" java-vm-args="-Dlog4j.configurationFile=file:/C:\Users\"Carlos Onorio"\Documents\NetBeansProjects\SGPA\log4j2.xml "  href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="SGPA.jar" size="223628" download="eager" />
+    <jar href="lib\log4j-api-2.11.0.jar" size="263109" download="eager" />
+    <jar href="lib\log4j-core-2.11.0.jar" size="1600780" download="eager" />
     <jar href="lib\mysql-connector-java-5.1.23-bin.jar" size="834126" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="SGPA" >

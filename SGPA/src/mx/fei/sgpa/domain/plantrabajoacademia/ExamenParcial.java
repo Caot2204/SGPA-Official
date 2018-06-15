@@ -10,6 +10,9 @@ package mx.fei.sgpa.domain.plantrabajoacademia;
 
 import java.util.ArrayList;
 
+/**
+ * Detalles del Examen Parcial con sus respectivos temas
+ */
 public class ExamenParcial {
     private int id;
     private ArrayList<String> temasDeParcial;

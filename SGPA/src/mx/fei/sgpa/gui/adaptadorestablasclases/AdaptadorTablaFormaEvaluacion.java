@@ -9,10 +9,13 @@ package mx.fei.sgpa.gui.adaptadorestablasclases;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ * Detalles de una FormaEvaluacion en tableview
+ */
 public class AdaptadorTablaFormaEvaluacion {
     
-    private SimpleStringProperty elemento = new SimpleStringProperty();
-    private SimpleFloatProperty porcentaje = new SimpleFloatProperty();
+    private final SimpleStringProperty elemento = new SimpleStringProperty();
+    private final SimpleFloatProperty porcentaje = new SimpleFloatProperty();
 
     public String getElemento() {
         return elemento.get();

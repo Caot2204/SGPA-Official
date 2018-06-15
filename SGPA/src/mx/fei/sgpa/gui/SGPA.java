@@ -13,13 +13,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Aplicación principal del SGPA
+ */
 public class SGPA extends Application {
     
     @Override
     public void start(Stage escenario) throws Exception {
-        Parent padre = FXMLLoader.load(getClass().getResource("VSGPAPrincipal.fxml"));
+        Parent padre = FXMLLoader.load(getClass().getResource("VInicioSesion.fxml"));
         Scene escena = new Scene(padre);
         escenario.setScene(escena);
+        escenario.setTitle("SPGA - Iniciar sesión");
         escenario.setResizable(false);
         escenario.show();
     }

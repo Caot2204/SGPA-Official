@@ -4,10 +4,13 @@ package mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import mx.fei.sgpa.dao.academico.AcademicoDAO;
 import mx.fei.sgpa.dao.plantrabajoacademia.PlanTrabajoAcademiaDAO;
+import mx.fei.sgpa.domain.Academico;
 import mx.fei.sgpa.domain.EstadoDeDocumento;
+import mx.fei.sgpa.domain.RolAcademico;
 import mx.fei.sgpa.domain.plantrabajoacademia.AccionDeMeta;
-import mx.fei.sgpa.domain.plantrabajoacademia.EEConParcial;
+import mx.fei.sgpa.domain.plantrabajoacademia.ExperienciaEducativaConParciales;
 import mx.fei.sgpa.domain.plantrabajoacademia.ExamenParcial;
 import mx.fei.sgpa.domain.plantrabajoacademia.FirmaAutorizacion;
 import mx.fei.sgpa.domain.plantrabajoacademia.FormaDeEvaluacion;
@@ -27,7 +30,7 @@ public class SuiteGuardadoPlanAcademia {
     private final ArrayList<AccionDeMeta> accionesDeMeta;
     private final ArrayList<MetaDeObjetivo> metasDeObjetivo;
     private final ArrayList<ObjetivoParticular> objetivosParticulares;
-    private final ArrayList<EEConParcial> eesConParciales;
+    private final ArrayList<ExperienciaEducativaConParciales> eesConParciales;
     private final ArrayList<ExamenParcial> examenesParciales;
     private final ArrayList<FormaDeEvaluacion> formasDeEvaluacion;
     private final ArrayList<Revision> historicoDeRevisiones;
@@ -103,7 +106,7 @@ public class SuiteGuardadoPlanAcademia {
         examenesParciales.add(primerParcial);
         examenesParciales.add(segundoParcial);
         
-        EEConParcial ingenieriaI = new EEConParcial("Ingeniería de Software I", examenesParciales);
+        ExperienciaEducativaConParciales ingenieriaI = new ExperienciaEducativaConParciales("Ingeniería de Software I", examenesParciales);
         
         eesConParciales.add(ingenieriaI);
         
@@ -139,7 +142,7 @@ public class SuiteGuardadoPlanAcademia {
         planAcademia.setProgramaEducativo("2002");
         planAcademia.setPeriodoEscolar("Febrero - Julio 2016");
         planAcademia.setNombreAcademia("Ingeniería de Software");
-        planAcademia.setNombreCoordinador("Juan Carlos Pérez Arriaga");
+        planAcademia.setNombreCoordinador("Juan Carlos Pérez");
         planAcademia.setObjetivoGeneral("Revisar programa de las EE que conforman la académia. Acordar fechas de exámenes parciales y finales. Estandarizar métodos de evaluación y ponderación de exámenes teóricos y prácticos.");
         planAcademia.setObjetivosParticulares(objetivosParticulares);
         planAcademia.setExamenesParciales(eesConParciales);
@@ -153,14 +156,22 @@ public class SuiteGuardadoPlanAcademia {
         planAcademiaB.setProgramaEducativo("2002");
         planAcademiaB.setPeriodoEscolar("Febrero - Julio 2018");
         planAcademiaB.setNombreAcademia("Ingeniería de Software");
-        planAcademiaB.setNombreCoordinador("Juan Carlos Pérez Arriaga");
+        planAcademiaB.setNombreCoordinador("Juan Carlos Pérez");
         planAcademiaB.setObjetivoGeneral("Revisar programa de las EE que conforman la académia. Acordar fechas de exámenes parciales y finales. Estandarizar métodos de evaluación y ponderación de exámenes teóricos y prácticos.");
         planAcademiaB.setObjetivosParticulares(new ArrayList<ObjetivoParticular>());
-        planAcademiaB.setExamenesParciales(new ArrayList<EEConParcial>());
+        planAcademiaB.setExamenesParciales(new ArrayList<ExperienciaEducativaConParciales>());
         planAcademiaB.setFormasDeEvaluacion(new ArrayList<FormaDeEvaluacion>());
         planAcademiaB.setHistoricoDeRevisiones(new ArrayList<Revision>());
         planAcademiaB.setAutorizacion(new FirmaAutorizacion());
         planAcademiaB.setEstado(EstadoDeDocumento.EN_EDICION);
+        
+        Academico academico = new Academico();
+        AcademicoDAO academicoDAO = new AcademicoDAO();
+        academico.setNumeroPersonal(203910);
+        academico.setNombreAcademico("Juan Carlos Pérez");
+        academico.setGradoEstudios("Lic. en Ingeniería de Software");
+        academico.setRolAcademico(RolAcademico.COORDINADOR);
+        academicoDAO.guardarAcademico(academico);
     }
     
     @Test

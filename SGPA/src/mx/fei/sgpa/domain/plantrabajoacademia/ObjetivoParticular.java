@@ -10,6 +10,9 @@ package mx.fei.sgpa.domain.plantrabajoacademia;
 
 import java.util.ArrayList;
 
+/**
+ * Detalles de un ObjetivoParticular del Formato de Academia PlanTrabajoAcademia
+ */
 public class ObjetivoParticular {
     private String id;
     private String descripcion;

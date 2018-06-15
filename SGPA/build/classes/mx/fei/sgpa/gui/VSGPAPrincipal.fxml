@@ -36,7 +36,7 @@
             <Image url="@../resource/contact-icon.png" />
          </image>
       </ImageView>
-      <Label layoutX="78.0" layoutY="22.0" text="Hola &quot;Nombre académico&quot;">
+      <Label fx:id="labelBienvenida" layoutX="78.0" layoutY="22.0" text="Hola &quot;Nombre académico&quot;">
          <font>
             <Font size="14.0" />
          </font>

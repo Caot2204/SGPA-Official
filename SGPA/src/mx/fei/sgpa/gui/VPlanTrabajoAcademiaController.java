@@ -1,22 +1,23 @@
-
+/****************************************************************/
+/* Nombre: Carlos Alberto Onorio Torres.			  */
+/* Fecha de creación:   15/05/2018				  */
+/* Ultima modificación: 13/06/2018				  */
+/* Descripción: Controlador de eventos para la interfaz           */
+/*              VPlanTrabajoAcademia.           		  */
+/** ************************************************************* */
 package mx.fei.sgpa.gui;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -30,7 +31,7 @@ import javafx.stage.Stage;
 import mx.fei.sgpa.domain.Academico;
 import mx.fei.sgpa.domain.plantrabajoacademia.AccionDeMeta;
 import mx.fei.sgpa.domain.plantrabajoacademia.DetallesPlanTrabajoAcademia;
-import mx.fei.sgpa.domain.plantrabajoacademia.EEConParcial;
+import mx.fei.sgpa.domain.plantrabajoacademia.ExperienciaEducativaConParciales;
 import mx.fei.sgpa.domain.plantrabajoacademia.ExamenParcial;
 import mx.fei.sgpa.domain.plantrabajoacademia.FormaDeEvaluacion;
 import mx.fei.sgpa.domain.plantrabajoacademia.MetaDeObjetivo;
@@ -40,6 +41,9 @@ import mx.fei.sgpa.gui.adaptadorestablasclases.AdaptadorTablaAccionDeMeta;
 import mx.fei.sgpa.gui.adaptadorestablasclases.AdaptadorTablaExamenParcial;
 import mx.fei.sgpa.gui.adaptadorestablasclases.AdaptadorTablaFormaEvaluacion;
 
+/**
+ * Controlador de eventos para la IU VPlanTrabajoAcademia
+ */
 public class VPlanTrabajoAcademiaController implements Initializable {
     
     private String nombreAcademia;
@@ -47,7 +51,7 @@ public class VPlanTrabajoAcademiaController implements Initializable {
     private DetallesPlanTrabajoAcademia detallesPlan;
     private ArrayList<Academico> integrantes;
     private ArrayList<ObjetivoParticular> objetivosParticulares;
-    private ArrayList<EEConParcial> examenesParciales;
+    private ArrayList<ExperienciaEducativaConParciales> examenesParciales;
     private ArrayList<FormaDeEvaluacion> formasDeEvaluacion;
     
     private AdministradorElaboracionPlanTrabajoAcademia administradorElaboracion;
@@ -106,6 +110,11 @@ public class VPlanTrabajoAcademiaController implements Initializable {
     
     private ObservableList<AdaptadorTablaAccionDeMeta> accionesIngresadas;
     private int posicionSeleccionada;
+    private final ListChangeListener<AdaptadorTablaAccionDeMeta> seleccionAccion = new ListChangeListener<AdaptadorTablaAccionDeMeta>() {
+                @Override
+                public void onChanged(ListChangeListener.Change<? extends AdaptadorTablaAccionDeMeta> escuchaAccion) {
+                    mostrarDatosDeAccionParaEditar();
+                }};
     
     @FXML
     private TableView<AdaptadorTablaExamenParcial> tableViewExamenesParciales;
@@ -132,6 +141,11 @@ public class VPlanTrabajoAcademiaController implements Initializable {
     private Button buttonEliminarTema;
     
     private ObservableList<AdaptadorTablaExamenParcial> temasDeExamenesIngresados;
+    private final ListChangeListener<AdaptadorTablaExamenParcial> seleccionTema = new ListChangeListener<AdaptadorTablaExamenParcial>() {
+                @Override
+                public void onChanged(ListChangeListener.Change<? extends AdaptadorTablaExamenParcial> escuchaParcial) {
+                    mostrarDatosDeTemaParaEditar();
+                }};
     
     @FXML
     private TableView<AdaptadorTablaFormaEvaluacion> tableViewFormasEvaluacion;
@@ -158,6 +172,11 @@ public class VPlanTrabajoAcademiaController implements Initializable {
     private Button buttonEliminarFormaEvaluacion;
     
     private ObservableList<AdaptadorTablaFormaEvaluacion> formasEvaluacionIngresados;
+    private final ListChangeListener<AdaptadorTablaFormaEvaluacion> seleccionFormaEvaluacion = new ListChangeListener<AdaptadorTablaFormaEvaluacion>() {
+                @Override
+                public void onChanged(ListChangeListener.Change<? extends AdaptadorTablaFormaEvaluacion> escuchaEvaluacion) {
+                    mostrarDatosDeFormaEvaluacionParaEditar();
+                }};
     
     @FXML
     private Button buttonGuardar;
@@ -205,6 +224,14 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         restaurarElementosIUFormasEvaluacion();
     }
 
+    /**
+     * Estable los datos de la Academia de la cual se realizará el Plan de Trabajo
+     * de Academia
+     * 
+     * @param academia Nombre de la Academia
+     * @param coordinador Nombre del Coordinador
+     * @param integrantesAcademia Integrantes de la Academia
+     */
     public void establecerDatosDeAcademia(String academia, String coordinador, ArrayList<Academico> integrantesAcademia) {
         this.nombreAcademia = academia;
         this.nombreCoordinador = coordinador;
@@ -213,19 +240,34 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         textFieldNombreCoordinador.setText(nombreCoordinador);
     }
     
+    /**
+     * Establece todos los datos del PlanTrabajoAcademia en la IU VPlanTrabajoAcademia
+     * utilizando a los métodos establecerObjetivosParticulares, establecerExamenesParciales
+     * y establecerFormasEvaluacion
+     * 
+     * @param plan Datos del PlanTrabajoAcademia 
+     */
     public void establecerDatosRecuperados(PlanTrabajoAcademia plan) {
         this.nombreAcademia = plan.getNombreAcademia();
         this.nombreCoordinador = plan.getNombreCoordinador();
         textFieldNombreAcademia.setText(nombreAcademia);
         textFieldNombreCoordinador.setText(nombreCoordinador);
         textFieldProgramaEducativo.setText(plan.getProgramaEducativo());
+        textFieldProgramaEducativo.setEditable(false);
         textFieldPeriodoEscolar.setText(plan.getPeriodoEscolar());
+        textFieldPeriodoEscolar.setEditable(false);
         textAreaObjetivoGeneral.setText(plan.getObjetivoGeneral());
         establecerObjetivosParticulares(plan.getObjetivosParticulares());
         establecerExamenesParciales(plan.getExamenesParciales());
         establecerFormasEvaluacion(plan.getFormasDeEvaluacion());
     }
     
+    /**
+     * Establece los objetivos, metas y acciones del PlanTrabajoAcademia en la
+     * IU VPlanTrabajoAcademia
+     * 
+     * @param objetivosParticulares Lista de ObjetivoParticular del PlanTrabajoAcademia
+     */
     public void establecerObjetivosParticulares(ArrayList<ObjetivoParticular> objetivosParticulares) {
         ObjetivoParticular objetivoParticular = objetivosParticulares.get(0);
         MetaDeObjetivo primerMeta = objetivoParticular.getMetasDeObjetivo().get(0);
@@ -243,7 +285,13 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         }        
     }
     
-    public void establecerExamenesParciales(ArrayList<EEConParcial> examenesParciales) {
+    /**
+     * Establece los datos de los ExamenParcial de cada Experiencia Educativa
+     * en la IU VPlanTrabajoAcademia
+     * 
+     * @param examenesParciales Lista de ExperienciaEducativaConParciales del PlanTrabajoAcademia
+     */
+    public void establecerExamenesParciales(ArrayList<ExperienciaEducativaConParciales> examenesParciales) {
         ArrayList<ExamenParcial> datosExamen = examenesParciales.get(0).getExamenesParciales();
         for (int i = 0; i < datosExamen.size(); i++) {
             ArrayList<String> temasDeExamen = datosExamen.get(i).getTemasDeParcial();
@@ -256,6 +304,12 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         }
     }
     
+    /**
+     * Establece las FormaDeEvaluacion de cada Experiencia Educativa en la IU
+     * VPlanTrabajoAcademia
+     * 
+     * @param formasEvaluacion Lista de FormaDeEvaluacion del PlanTrabajoAcademia
+     */
     public void establecerFormasEvaluacion(ArrayList<FormaDeEvaluacion> formasEvaluacion) {
         for (int i = 0; i < formasEvaluacion.size(); i++) {
             AdaptadorTablaFormaEvaluacion formaEvaluacionTabla = new AdaptadorTablaFormaEvaluacion();
@@ -265,6 +319,12 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         }        
     }
     
+    /**
+     * Establece los datos del PlanTrabajoAcademia únicamente para visualizarlos,
+     * NO editarlos
+     * 
+     * @param planAcademia Datos del PlanTrabajoAcademia
+     */
     public void mostrarPlan(PlanTrabajoAcademia planAcademia) {
         establecerDatosRecuperados(planAcademia);
         
@@ -297,22 +357,37 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         buttonEliminarFormaEvaluacion.setVisible(false);
     }
     
+    /**
+     * Obtiene los datos ingresados por el Académico COORDINADOR y los envía
+     * al AdministradorElaboracionPlanTrabajoAcademia o AdministradorEdicionPlanTrabajoAcademia
+     * (dependiendo de cual este instanciado en ese momento)
+     */
     public void guardarPlan() {
         objetivosParticulares = new ArrayList<>();
         examenesParciales = new ArrayList<>();
         formasDeEvaluacion = new ArrayList<>();
-        obtenerDatosDeIU();
         
-        if (AdministradorElaboracionPlanTrabajoAcademia.existeInstancia()) {
-            administradorElaboracion = AdministradorElaboracionPlanTrabajoAcademia.obtenerInstancia();
-            administradorElaboracion.guardarPlan(detallesPlan, objetivosParticulares, examenesParciales, formasDeEvaluacion);            
+        try {
+            obtenerDatosDeIU();
+            if (AdministradorElaboracionPlanTrabajoAcademia.existeInstancia()) {
+                administradorElaboracion = AdministradorElaboracionPlanTrabajoAcademia.obtenerInstancia();
+                administradorElaboracion.guardarPlan(detallesPlan, objetivosParticulares, examenesParciales, formasDeEvaluacion);            
+            }
+            else if (AdministradorEdicionPlanTrabajoAcademia.existeInstancia()) {
+                administradorEdicion = AdministradorEdicionPlanTrabajoAcademia.obtenerInstancia();
+                administradorEdicion.guardarPlan(detallesPlan, objetivosParticulares, examenesParciales, formasDeEvaluacion);
+            }
         }
-        else if (AdministradorEdicionPlanTrabajoAcademia.existeInstancia()) {
-            administradorEdicion = AdministradorEdicionPlanTrabajoAcademia.obtenerInstancia();
-            administradorEdicion.guardarPlan(detallesPlan, objetivosParticulares, examenesParciales, formasDeEvaluacion);
+        catch (IllegalArgumentException excepcionArgumentoInvalido) {
+            mostrarMensajeDatosInvalidos();
         }
     }
     
+    /**
+     * Obtiene los datos ingresados en la IU VPlanTrabajoAcademia utilizando los
+     * métodos obtenerObjetivosParticulares, obtenerExamenesParciales y
+     * obtenerFormasEvaluacion; y valida si son aptos para almacenarlos
+     */
     public void obtenerDatosDeIU() {
         Date fechaActual = new Date();
         java.sql.Date fechaAprobacion = new java.sql.Date(fechaActual.getTime());
@@ -320,18 +395,52 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         detallesPlan = new DetallesPlanTrabajoAcademia();
         detallesPlan.setFechaAprobacion(fechaAprobacion);
         
-        if (textFieldProgramaEducativo.getText().length() < 100) {
-            detallesPlan.setProgramaEducativo(textFieldProgramaEducativo.getText());
+        if (!textFieldProgramaEducativo.getText().equals("")) {
+            String primerCaracterProgramaEducativo = String.valueOf(textFieldProgramaEducativo.getText().charAt(0));
+            if (!primerCaracterProgramaEducativo.equals(" ")) {
+                detallesPlan.setProgramaEducativo(textFieldProgramaEducativo.getText());
+            }
+            else {
+                textFieldProgramaEducativo.requestFocus();
+                throw new IllegalArgumentException("Datos inválidos en programa educativo");
+            }
         }
-        if (textFieldPeriodoEscolar.getText().length() < 50) {
-            detallesPlan.setPeriodoEscolar(textFieldPeriodoEscolar.getText());
+        else {
+            textFieldProgramaEducativo.requestFocus();
+            throw new IllegalArgumentException("Datos inválidos en programa educativo");
+        }
+        
+        if (!textFieldPeriodoEscolar.getText().equals("")) {
+            String primerCaracterPeriodoEscolar = String.valueOf(textFieldPeriodoEscolar.getText().charAt(0));
+            if (!primerCaracterPeriodoEscolar.equals(" ")) {
+                detallesPlan.setPeriodoEscolar(textFieldPeriodoEscolar.getText());
+            }
+            else {
+                textFieldPeriodoEscolar.requestFocus();
+                throw new IllegalArgumentException("Datos inválidos en periodo escolar");
+            }
+        }
+        else {
+            textFieldPeriodoEscolar.requestFocus();
+            throw new IllegalArgumentException("Datos inválidos en periodo escolar");
         }
         
         detallesPlan.setNombreAcademia(nombreAcademia);
         detallesPlan.setNombreCoordinador(nombreCoordinador);
         
-        if (textAreaObjetivoGeneral.getText().length() < 500) {
-            detallesPlan.setObjetivoGeneral(textAreaObjetivoGeneral.getText());
+        if (!textAreaObjetivoGeneral.getText().equals("")){
+            String primerCaracterObjetivoGeneral = String.valueOf(textAreaObjetivoGeneral.getText().charAt(0));
+            if (!primerCaracterObjetivoGeneral.equals(" ") && textAreaObjetivoGeneral.getText().length() < 500) {
+                detallesPlan.setObjetivoGeneral(textAreaObjetivoGeneral.getText());
+            }
+            else {
+                textAreaObjetivoGeneral.requestFocus();
+                throw new IllegalArgumentException("Datos inválidos en objetivo general");
+            }            
+        }
+        else {
+            textAreaObjetivoGeneral.requestFocus();
+            throw new IllegalArgumentException("Datos inválidos en objetivo general");            
         }
         
         obtenerObjetivosParticulares();
@@ -340,36 +449,70 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         
     }
     
+    /**
+     * Obtiene los datos de los Objetivos Particulares, Metas y Acciones ingresadas
+     * en la IU VPlanTrabajoAcademia
+     */
     public void obtenerObjetivosParticulares() {
         objetivosParticulares = new ArrayList<>();
         
-        MetaDeObjetivo primerMeta = new MetaDeObjetivo();
-        primerMeta.setId("MTA1.1");
-        primerMeta.setDescripcion(textFieldPrimerMeta.getText());
-        ArrayList<AccionDeMeta> accionesDeMeta = new ArrayList<>();
-        for (int a = 0; a < accionesIngresadas.size(); a++) {
-            AccionDeMeta accion = new AccionDeMeta();
-            accion.setDescripcionAccion(accionesIngresadas.get(a).getDescripcionAccion());
-            accion.setFechaSemana(accionesIngresadas.get(a).getFechaSemana());
-            accion.setFormaOperar(accionesIngresadas.get(a).getFormaOperar());
-            accionesDeMeta.add(accion);
+        if (textFieldPrimerMeta.getText() != null && !textFieldPrimerMeta.getText().equals("")) {
+            String primerCaracterMeta = String.valueOf(textFieldPrimerMeta.getText().charAt(0));
+            if (!primerCaracterMeta.equals(" ")) {
+                MetaDeObjetivo primerMeta = new MetaDeObjetivo();
+                primerMeta.setId("MTA1.1");
+                primerMeta.setDescripcion(textFieldPrimerMeta.getText());
+                ArrayList<AccionDeMeta> accionesDeMeta = new ArrayList<>();
+                for (int a = 0; a < accionesIngresadas.size(); a++) {
+                    AccionDeMeta accion = new AccionDeMeta();
+                    accion.setDescripcionAccion(accionesIngresadas.get(a).getDescripcionAccion());
+                    accion.setFechaSemana(accionesIngresadas.get(a).getFechaSemana());
+                    accion.setFormaOperar(accionesIngresadas.get(a).getFormaOperar());
+                    accionesDeMeta.add(accion);
+                }
+                primerMeta.setAccionesDeMeta(accionesDeMeta);
+
+                if (textFieldPrimerObjetivoParticular.getText() != null && !textFieldPrimerObjetivoParticular.getText().equals("")) {
+                    String primerCaracterObjetivoParticular = String.valueOf(textFieldPrimerObjetivoParticular.getText().charAt(0));
+                    if (!primerCaracterObjetivoParticular.equals(" ")) {
+                        ObjetivoParticular primerObjetivo = new ObjetivoParticular();
+                        primerObjetivo.setId("OBJP1");
+                        primerObjetivo.setDescripcion(textFieldPrimerObjetivoParticular.getText());
+                        ArrayList<MetaDeObjetivo> metasDeObjetivo = new ArrayList<>();
+                        metasDeObjetivo.add(primerMeta);
+                        primerObjetivo.setMetasDeObjetivo(metasDeObjetivo);
+                        objetivosParticulares.add(primerObjetivo);
+                    }
+                    else {
+                        textFieldPrimerObjetivoParticular.requestFocus();
+                        throw new IllegalArgumentException("Datos inválidos en el primer objetivo particular");
+                    }
+                }
+                else {
+                    textFieldPrimerObjetivoParticular.requestFocus();
+                    throw new IllegalArgumentException("Datos inválidos en el primer objetivo particular");
+                }
+            }
+            else {
+                textFieldPrimerMeta.requestFocus();
+                throw new IllegalArgumentException("Datos inválidos en la primera meta");
+            }
         }
-        primerMeta.setAccionesDeMeta(accionesDeMeta);
-        
-        ObjetivoParticular primerObjetivo = new ObjetivoParticular();
-        primerObjetivo.setId("OBJP1");
-        primerObjetivo.setDescripcion(textFieldPrimerObjetivoParticular.getText());
-        ArrayList<MetaDeObjetivo> metasDeObjetivo = new ArrayList<>();
-        metasDeObjetivo.add(primerMeta);
-        primerObjetivo.setMetasDeObjetivo(metasDeObjetivo);
-        
-        objetivosParticulares.add(primerObjetivo);        
+        else {
+            textFieldPrimerMeta.requestFocus();
+            throw new IllegalArgumentException("Datos inválidos en la primera meta");
+        }
+                
     }
     
+    /**
+     * Obtiene los Temas para Exámenes Parciales de las Experiencias Educativas
+     * ingresados en la IU VPlanTrabajoAcademia
+     */
     public void obtenerExamenesParciales() {
         examenesParciales = new ArrayList<>();
-        EEConParcial primerEE = new EEConParcial();
-        primerEE.setExperienciaEducativa("Principios de Construcción de Software");
+        ExperienciaEducativaConParciales primerExperiencia = new ExperienciaEducativaConParciales();
+        primerExperiencia.setExperienciaEducativa("Principios de Construcción de Software");
         ArrayList<ExamenParcial> examenes = new ArrayList<>();
         
         for (int a = 1; a <= 2; a++) {
@@ -385,10 +528,14 @@ public class VPlanTrabajoAcademiaController implements Initializable {
             examenes.add(examen);
         }
         
-        primerEE.setExamenesParciales(examenes);
-        examenesParciales.add(primerEE);
+        primerExperiencia.setExamenesParciales(examenes);
+        examenesParciales.add(primerExperiencia);
     }
     
+    /**
+     * Obtiene las Formas de Evaluación para cada Experiencia Educativa
+     * ingresadas en la IU VPlanTrabajoAcademia
+     */    
     public void obtenerFormasEvaluacion() {
         formasDeEvaluacion = new ArrayList<>();
         for (int a = 0; a < formasEvaluacionIngresados.size(); a++) {
@@ -399,6 +546,10 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         }        
     }
     
+    /**
+     * Muestra el mensaje para indicar al Académico que ha ingresado datos inválidos o
+     * campos sin llenar
+     */
     public void mostrarMensajeDatosInvalidos() {
         Alert mensajeDatosInvalidos = new Alert(AlertType.WARNING);
         mensajeDatosInvalidos.setTitle("Datos inválidos");
@@ -406,6 +557,10 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         mensajeDatosInvalidos.showAndWait();
     }
     
+    /**
+     * Muestra el mensaje para Concluir (asignar CONCLUIDO) o Guardar progreso (asignar EN_EDICION)
+     * al PlanTrabajoAcademia ingresado
+     */
     public void mostrarMensajeConcluir() {
         Alert mensajeConcluir = new Alert(AlertType.CONFIRMATION);
         mensajeConcluir.setTitle("Concluir Plan de Trabajo de Academia");
@@ -427,6 +582,12 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         
     }
     
+    /**
+     * Envia al AdministradorElaboracionPlanTrabajoAcademia o AdministradorEdicionPlanTrabajoAcademia
+     * la opción que eligió el Académico para guardar el PlanTrabajoAcademia
+     * 
+     * @param opcion "Concluir": Estado CONCLUIDO o "Guardar progreso": Estado EN_EDICION
+     */
     public void ejecutarOpcionElegida(String opcion) {
         if (AdministradorElaboracionPlanTrabajoAcademia.existeInstancia()) {
             administradorElaboracion = AdministradorElaboracionPlanTrabajoAcademia.obtenerInstancia();
@@ -438,6 +599,12 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         }               
     }
     
+    /**
+     * Muestra el mensaje de éxito de guardado al Académico dependiendo de la opción (Concluir o Guardar progreso)
+     * elegida para guardar el PlanTrabajoAcademia
+     * 
+     * @param opcion Opción elegida por el Académico para guardar el PlanTrabajoAcademia
+     */
     public void mostrarMensajeExitoGuardado(String opcion) {
         Alert mensajeExitoGuardado = new Alert(AlertType.INFORMATION);
         mensajeExitoGuardado.setTitle("Plan de Trabajo de Academia guardado");
@@ -451,6 +618,9 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         mensajeExitoGuardado.showAndWait();
     }
     
+    /**
+     * Muestra un mensaje al ocurrir algún error al intentar guardar el PlanTrabajoAcademia
+     */
     public void mostrarMensajeFalloGuardado() {
         Alert mensajeFalloGuardado = new Alert(AlertType.ERROR);
         mensajeFalloGuardado.setTitle("Error al guardar el Plan de Trabajo de Academia");
@@ -466,30 +636,30 @@ public class VPlanTrabajoAcademiaController implements Initializable {
             guardarPlan();            
         }        
     }
-    
-    private final ListChangeListener<AdaptadorTablaAccionDeMeta> seleccionAccion =
-            new ListChangeListener<AdaptadorTablaAccionDeMeta>() {
-                @Override
-                public void onChanged(ListChangeListener.Change<? extends AdaptadorTablaAccionDeMeta> escuchaAccion) {
-                    editarDatosDeAccion();
-                }
-            };
 
+    /**
+     * Obtiene el AdaptadorTablaAccionDeMeta seleccionada por el Académico
+     * 
+     * @return Objeto AdaptadorTablaAccionDeMeta con los datos de una AccionDeMeta
+     */
     public AdaptadorTablaAccionDeMeta obtenerAccionSeleccionada() {
+        AdaptadorTablaAccionDeMeta accionSeleccionada = null;
         if (tableViewAccionesMeta != null) {
             List<AdaptadorTablaAccionDeMeta> tabla = tableViewAccionesMeta.getSelectionModel().getSelectedItems();
             if (tabla.size() == 1) {
-                final AdaptadorTablaAccionDeMeta accionSeleccionada = tabla.get(0);
-                return accionSeleccionada;
+                accionSeleccionada = tabla.get(0);
             }
         }
-        return null;
+        return accionSeleccionada;
     }
 
-    private void editarDatosDeAccion() {
-        final AdaptadorTablaAccionDeMeta accion = obtenerAccionSeleccionada();
+    /**
+     * Muestra los datos de un AdaptadorTablaAccionDeMeta seleccionada por el Académico para
+     * ser editados
+     */
+    private void mostrarDatosDeAccionParaEditar() {
+        AdaptadorTablaAccionDeMeta accion = obtenerAccionSeleccionada();
         posicionSeleccionada = accionesIngresadas.indexOf(accion);
-
         if (accion != null) {
             textFieldAccion.setText(accion.getDescripcionAccion());
             textFieldFechaSemana.setText(accion.getFechaSemana());
@@ -500,6 +670,9 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         }
     }
     
+    /**
+     * Agrega un acción a la tabla de Acciones para un Meta de un Objetivo Particular
+     */
     public void agregarAccion() {
         if (validarEntradaAccion()) {
             AdaptadorTablaAccionDeMeta accionDeMeta = new AdaptadorTablaAccionDeMeta();
@@ -514,6 +687,9 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         }
     }
     
+    /**
+     * Actualiza los datos de una Accion de la tabla acciones de una Meta de un Objetivo Particular
+     */
     public void actualizarAccion() {
         if (validarEntradaAccion()) {
             AdaptadorTablaAccionDeMeta accionDeMeta = new AdaptadorTablaAccionDeMeta();
@@ -528,28 +704,40 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         }
     }
     
+    /**
+     * Valida que los datos ingresados para una Acción cumplan
+     * con las restricciones para esta (No Nulos, espacios en blanco al inicio, longitud)
+     * 
+     * @return true si los datos cumplen con las restricciones, false si no es así
+     */
     public boolean validarEntradaAccion() {
         boolean datosValidos = true;
-        if (textFieldAccion.getText().length() > 10000 || textFieldAccion.getText().equals("")) {
+        if (textFieldAccion.getText().length() > 10000 || textFieldAccion.getText().equals("") || String.valueOf(textFieldAccion.getText().charAt(0)).equals(" ")) {
             textFieldAccion.requestFocus();
             datosValidos = false;            
         }
-        if (textFieldFechaSemana.getText().length() > 100 || textFieldFechaSemana.getText().equals("")) {
+        if (textFieldFechaSemana.getText().length() > 100 || textFieldFechaSemana.getText().equals("") || String.valueOf(textFieldFechaSemana.getText().charAt(0)).equals(" ")) {
             textFieldFechaSemana.requestFocus();
             datosValidos = false;
         }
-        if (textFieldFormaOperar.getText().length() > 10000 || textFieldFormaOperar.getText().equals("")) {
+        if (textFieldFormaOperar.getText().length() > 10000 || textFieldFormaOperar.getText().equals("") || String.valueOf(textFieldFormaOperar.getText().charAt(0)).equals(" ")) {
             textFieldFormaOperar.requestFocus();
             datosValidos = false;
         }
         return datosValidos;
     }
     
+    /**
+     * Elimina la Acción seleccionada por el Académico
+     */
     public void eliminarAccion() {
         accionesIngresadas.remove(posicionSeleccionada);
         restaurarElementosIUAcciones();
     }
     
+    /**
+     * Devuelve a los valores por default los elementos de la IU para ingresar una Acción
+     */
     public void restaurarElementosIUAcciones() {
         textFieldAccion.setText("");
         textFieldFechaSemana.setText("");
@@ -559,30 +747,30 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         buttonActualizarAccion.setDisable(true);
         buttonEliminarAccion.setDisable(true);
     }
-    
-    private final ListChangeListener<AdaptadorTablaExamenParcial> seleccionTema =
-            new ListChangeListener<AdaptadorTablaExamenParcial>() {
-                @Override
-                public void onChanged(ListChangeListener.Change<? extends AdaptadorTablaExamenParcial> escuchaParcial) {
-                    editarDatosDeTema();
-                }
-            };
 
+    /**
+     * Obtiene el AdaptadorTablaExamenParcial seleccionado por el Académico
+     * 
+     * @return Objeto AdaptadorTablaExamenParcial con el Número de Parcial y su respectivo tema
+     */
     public AdaptadorTablaExamenParcial obtenerTemaSeleccionado() {
+        AdaptadorTablaExamenParcial temaSeleccionado = null;
         if (tableViewExamenesParciales != null) {
             List<AdaptadorTablaExamenParcial> tabla = tableViewExamenesParciales.getSelectionModel().getSelectedItems();
             if (tabla.size() == 1) {
-                final AdaptadorTablaExamenParcial temaSeleccionado = tabla.get(0);
-                return temaSeleccionado;
+                temaSeleccionado = tabla.get(0);
             }
         }
-        return null;
+        return temaSeleccionado;
     }
 
-    private void editarDatosDeTema() {
-        final AdaptadorTablaExamenParcial tema = obtenerTemaSeleccionado();
+    /**
+     * Muestra los datos del AdaptadorTablaExamenParcial seleccionado por el Académico 
+     * para ser editados
+     */
+    private void mostrarDatosDeTemaParaEditar() {
+        AdaptadorTablaExamenParcial tema = obtenerTemaSeleccionado();
         posicionSeleccionada = temasDeExamenesIngresados.indexOf(tema);
-
         if (tema != null) {
             textFieldNumeroParcial.setText(Integer.toString(tema.getNumeroParcial()));
             textFieldTemaDeParcial.setText(tema.getTemaDeParcial());
@@ -592,6 +780,9 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         }
     }
     
+    /**
+     * Agrega un tema para un ExamenParcial de una Experiencia Educativa
+     */
     public void agregarTema() {
         try {
             if (validarEntradaTema()) {
@@ -611,6 +802,9 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         }
     }
     
+    /**
+     * Actualiza los datos de un tema seleccionado para un ExamenParcial de una Experiencia Educativa
+     */
     public void actualizarTema() {
         try {
             if (validarEntradaTema()) {
@@ -631,6 +825,13 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         
     }
     
+    /**
+     * Valida que los datos ingresados para un tema de un ExamenParcial cumplan con las
+     * restricciones para este
+     * 
+     * @return true si los datos cumplen con las restricciones, false si no es así
+     * @throws NumberFormatException Lanzada cuando el Académico intenta ingresar texto en el campo del número de parcial
+     */
     public boolean validarEntradaTema() throws NumberFormatException{
         boolean datosValidos = true;
         int numeroParcialIngresado = Integer.parseInt(textFieldNumeroParcial.getText());
@@ -638,18 +839,31 @@ public class VPlanTrabajoAcademiaController implements Initializable {
             textFieldNumeroParcial.requestFocus();
             datosValidos = false;            
         }
-        if (textFieldTemaDeParcial.getText().length() > 100 || textFieldTemaDeParcial.getText().equals("")) {
+        if (textFieldTemaDeParcial.getText() != null) {
+            if (textFieldTemaDeParcial.getText().length() > 100 || textFieldTemaDeParcial.getText().equals("") || String.valueOf(textFieldTemaDeParcial.getText().charAt(0)).equals(" ")) {
+                textFieldTemaDeParcial.requestFocus();
+                datosValidos = false;
+            } 
+        }
+        else {
             textFieldTemaDeParcial.requestFocus();
             datosValidos = false;
         }
+        
         return datosValidos;
     }
     
+    /**
+     * Elimina el tema seleccionado por el Académico para un ExamenParcial
+     */
     public void eliminarTema() {
         temasDeExamenesIngresados.remove(posicionSeleccionada);
         restaurarElementosIUTemasExamenes();
     }
     
+    /**
+     * Restaura a sus valores por default a los elementos de la IU para ingresar un tema de ExamenParcial
+     */
     public void restaurarElementosIUTemasExamenes() {
         textFieldNumeroParcial.setText("");
         textFieldTemaDeParcial.setText("");
@@ -658,30 +872,31 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         buttonActualizarTema.setDisable(true);
         buttonEliminarTema.setDisable(true);
     }
-    
-    private final ListChangeListener<AdaptadorTablaFormaEvaluacion> seleccionFormaEvaluacion =
-            new ListChangeListener<AdaptadorTablaFormaEvaluacion>() {
-                @Override
-                public void onChanged(ListChangeListener.Change<? extends AdaptadorTablaFormaEvaluacion> escuchaEvaluacion) {
-                    editarDatosDeFormaEvaluacion();
-                }
-            };
 
+    /**
+     * Obtiene el AdaptadorTablaFormaEvaluacion seleccionado por el Académico
+     * 
+     * @return Objeto de tipo AdaptadorTablaFormaEvaluacion con los datos de una FormaDeEvaluacion
+     */
     public AdaptadorTablaFormaEvaluacion obtenerFormaEvaluacionSeleccionada() {
+        AdaptadorTablaFormaEvaluacion formaEvaluacionSeleccionada = null;
         if (tableViewFormasEvaluacion != null) {
             List<AdaptadorTablaFormaEvaluacion> tabla = tableViewFormasEvaluacion.getSelectionModel().getSelectedItems();
             if (tabla.size() == 1) {
-                final AdaptadorTablaFormaEvaluacion formaEvaluacionSeleccionada = tabla.get(0);
+                formaEvaluacionSeleccionada = tabla.get(0);
                 return formaEvaluacionSeleccionada;
             }
         }
-        return null;
+        return formaEvaluacionSeleccionada;
     }
 
-    private void editarDatosDeFormaEvaluacion() {
-        final AdaptadorTablaFormaEvaluacion formaEvaluacion = obtenerFormaEvaluacionSeleccionada();
+    /**
+     * Muestra los datos del AdaptadorTablaFormaEvaluacion seleccionado por el Académico
+     * para ser editados
+     */
+    private void mostrarDatosDeFormaEvaluacionParaEditar() {
+        AdaptadorTablaFormaEvaluacion formaEvaluacion = obtenerFormaEvaluacionSeleccionada();
         posicionSeleccionada = formasEvaluacionIngresados.indexOf(formaEvaluacion);
-
         if (formaEvaluacion != null) {
             textFieldElemento.setText(formaEvaluacion.getElemento());
             textFieldPorcentajeElemento.setText(Float.toString(formaEvaluacion.getPorcentaje()));
@@ -691,6 +906,9 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         }
     }
     
+    /**
+     * Agrega una nueva Forma de Evaluación a la tabla de Formas de Evaluación para una Experiencia Educativa
+     */
     public void agregarFormaEvaluacion() {
         try {
             if (validarEntradaFormaEvaluacion()) {
@@ -710,6 +928,9 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         }
     }
     
+    /**
+     * Actualiza los datos de una Forma de Evaluación seleccionada por el Académico
+     */
     public void actualizarFormaEvaluacion() {
         try {
             if (validarEntradaFormaEvaluacion()) {
@@ -729,12 +950,25 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         }
     }
     
+    /**
+     * Valida que los datos de la Forma de Evaluación ingresada cumpla con las 
+     * restricciones para esta
+     * 
+     * @return true si los datos cumplen con las restricciones, false si no es así
+     * @throws NumberFormatException Lanzada cuando el Académico ingresa algún caracter en el campo del porcentaje del elemento
+     */    
     public boolean validarEntradaFormaEvaluacion() throws NumberFormatException{
         boolean datosValidos = true;
         float porcentajeIngresado = Float.parseFloat(textFieldPorcentajeElemento.getText());
-        if (textFieldElemento.getText().length() > 100 || textFieldElemento.getText().equals("")) {
+        if (textFieldElemento.getText() != null) {
+            if (textFieldElemento.getText().length() > 100 || textFieldElemento.getText().equals("") || String.valueOf(textFieldElemento.getText().charAt(0)).equals(" ")) {
+                textFieldElemento.requestFocus();
+                datosValidos = false;            
+            }
+        }
+        else {
             textFieldElemento.requestFocus();
-            datosValidos = false;            
+            datosValidos = false;
         }
         if (porcentajeIngresado > 1 || porcentajeIngresado < 0) {
             textFieldPorcentajeElemento.requestFocus();
@@ -743,11 +977,18 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         return datosValidos;
     }
     
+    /**
+     * Elimina la Forma de Evaluación seleccionada por el Académico
+     */
     public void eliminarFormaEvaluacion() {
         formasEvaluacionIngresados.remove(posicionSeleccionada);
         restaurarElementosIUFormasEvaluacion();
     }
     
+    /**
+     * Restaura a sus valores por default a los elementos de la IU para ingresar una 
+     * Forma de Evaluación
+     */
     public void restaurarElementosIUFormasEvaluacion() {
         textFieldElemento.setText("");
         textFieldPorcentajeElemento.setText("");
@@ -757,6 +998,10 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         buttonEliminarFormaEvaluacion.setDisable(true);
     }
     
+    /**
+     * Despliega la IU VSGPAPrincipal si el Académico elige cancelar la elaboración o edición del PlanTrabajoAcademia.
+     * Si el Académico no desea cancelar, el sistema muestra un mensaje para permitir que continúe trabajando
+     */
     public void regresarAPantallaPrincipal() {
         Alert mensajeRegresar = new Alert(AlertType.CONFIRMATION);
         mensajeRegresar.setTitle("Regresar");
@@ -786,6 +1031,11 @@ public class VPlanTrabajoAcademiaController implements Initializable {
         }                 
     }
     
+    /**
+     * Despliega un mensaje al Académico que inició sesión en el sistema
+     * 
+     * @param mensaje Mensaje a mostrar al Académico
+     */
     public void mostrarMensajeDeSistema(String mensaje) {
         Alert mensajeDeSistema = new Alert(AlertType.INFORMATION);
         mensajeDeSistema.setTitle("SGPA - Mensaje del sistema");

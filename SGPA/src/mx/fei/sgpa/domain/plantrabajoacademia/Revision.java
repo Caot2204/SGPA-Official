@@ -10,6 +10,9 @@ package mx.fei.sgpa.domain.plantrabajoacademia;
 
 import java.sql.Date;
 
+/**
+ * Detalles de la sección Revisión del Formato de Academia PlanTrabajoAcademia
+ */
 public class Revision {
     private int numeroRevision;
     private Date fecha;

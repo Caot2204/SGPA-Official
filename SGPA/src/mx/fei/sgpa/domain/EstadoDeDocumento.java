@@ -8,6 +8,11 @@
 
 package mx.fei.sgpa.domain;
 
+/**
+ * Posibles estados para un Formato de Academia. EN_EDICION permite que el Formato
+ * de Academia pueda ser editado indefinidas veces, CONCLUIDO solo permite visualizar
+ * el Formato de Academia pero sin modificarlo.
+ */
 public enum EstadoDeDocumento{
     EN_EDICION, CONCLUIDO; 
 }

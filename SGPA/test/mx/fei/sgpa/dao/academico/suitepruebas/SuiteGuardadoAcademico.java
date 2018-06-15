@@ -24,7 +24,7 @@ public class SuiteGuardadoAcademico {
         academico.setNumeroPersonal(203910);
         academico.setNombreAcademico("Juan Carlos Pérez");
         academico.setGradoEstudios("Lic. en Ingeniería de Software");
-        academico.setRolAcademico(RolAcademico.docente);
+        academico.setRolAcademico(RolAcademico.DOCENTE);
     }
     
     @Test

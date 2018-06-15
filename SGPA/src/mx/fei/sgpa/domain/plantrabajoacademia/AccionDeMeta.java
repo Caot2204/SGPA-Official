@@ -7,6 +7,9 @@
 
 package mx.fei.sgpa.domain.plantrabajoacademia;
 
+/**
+ * Detalles de un Accion de una Meta en un PlanTrabajoAcademia
+ */
 public class AccionDeMeta {
     private String descripcionAccion;
     private String fechaSemana;

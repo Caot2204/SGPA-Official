@@ -12,6 +12,9 @@ import java.sql.Date;
 import java.util.ArrayList;
 import mx.fei.sgpa.domain.EstadoDeDocumento;
 
+/**
+ * Detalles del Formato de Academia PlanTrabajoAcademia
+ */
 public class PlanTrabajoAcademia {
     private String id;
     private Date fechaAprobacion;
@@ -21,7 +24,7 @@ public class PlanTrabajoAcademia {
     private String nombreCoordinador;
     private String objetivoGeneral;
     private ArrayList<ObjetivoParticular> objetivosParticulares;
-    private ArrayList<EEConParcial> examenesParciales;
+    private ArrayList<ExperienciaEducativaConParciales> examenesParciales;
     private ArrayList<FormaDeEvaluacion> formasDeEvaluacion;
     private ArrayList<Revision> historicoDeRevisiones;
     private FirmaAutorizacion autorizacion;
@@ -63,7 +66,7 @@ public class PlanTrabajoAcademia {
         return objetivosParticulares;
     }
 
-    public ArrayList<EEConParcial> getExamenesParciales() {
+    public ArrayList<ExperienciaEducativaConParciales> getExamenesParciales() {
         return examenesParciales;
     }
 
@@ -115,7 +118,7 @@ public class PlanTrabajoAcademia {
         this.objetivosParticulares = objetivosParticulares;
     }
 
-    public void setExamenesParciales(ArrayList<EEConParcial> examenesParciales) {
+    public void setExamenesParciales(ArrayList<ExperienciaEducativaConParciales> examenesParciales) {
         this.examenesParciales = examenesParciales;
     }
 

@@ -11,12 +11,19 @@ package mx.fei.sgpa.datasource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+/**
+ * Establece y cierra una conexión con la base de datos del sistema
+ */
 public class DataBase {
-    private static Connection connection;    
+    private static Connection connection; 
+    private static final Logger loggerDelSistema = LogManager.getLogger(DataBase.class);
     
+    /**
+     * Establece una conexión con la Base de Datos del SGPA
+     */
     private static void makeConnection(){
         try {
             String url= "jdbc:mysql://localhost/";
@@ -25,25 +32,34 @@ public class DataBase {
             String password = "administrador";
        
             connection = (Connection)DriverManager.getConnection(url+databaseName,userName,password);
-        } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
+        catch (SQLException excepcionBaseDatos) {
+            loggerDelSistema.error("makeConnection: Ocurrió un problema en BD");
+        }
     }
     
+    /**
+     * Obtiene la conexión establecida a la Base de Datos del SGPA
+     * @return Conexión a la Base de Datos del SGPA
+     */
     public static Connection getDataBaseConnection() {        
         makeConnection();
         return DataBase.connection;
  
     }
     
+    /**
+     * Cierra la conexión actual con la Base de Datos del SGPA
+     */
     public static void closeConnection(){
         if(connection!=null){
             try {
                 if(!connection.isClosed()){
                     connection.close();                
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            catch (SQLException excepcionBaseDatos) {
+                loggerDelSistema.error("closeConnection: Ocurrió un problema en BD");
             }
         }
     }

@@ -4,10 +4,13 @@ package mx.fei.sgpa.dao.plantrabajoacademia.suitepruebas;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import mx.fei.sgpa.dao.academico.AcademicoDAO;
 import mx.fei.sgpa.dao.plantrabajoacademia.PlanTrabajoAcademiaDAO;
+import mx.fei.sgpa.domain.Academico;
 import mx.fei.sgpa.domain.EstadoDeDocumento;
+import mx.fei.sgpa.domain.RolAcademico;
 import mx.fei.sgpa.domain.plantrabajoacademia.AccionDeMeta;
-import mx.fei.sgpa.domain.plantrabajoacademia.EEConParcial;
+import mx.fei.sgpa.domain.plantrabajoacademia.ExperienciaEducativaConParciales;
 import mx.fei.sgpa.domain.plantrabajoacademia.ExamenParcial;
 import mx.fei.sgpa.domain.plantrabajoacademia.FirmaAutorizacion;
 import mx.fei.sgpa.domain.plantrabajoacademia.FormaDeEvaluacion;
@@ -25,7 +28,7 @@ public class SuiteLecturaPlanAcademia {
     private final ArrayList<AccionDeMeta> accionesDeMeta;
     private final ArrayList<MetaDeObjetivo> metasDeObjetivo;
     private final ArrayList<ObjetivoParticular> objetivosParticulares;
-    private final ArrayList<EEConParcial> eesConParciales;
+    private final ArrayList<ExperienciaEducativaConParciales> eesConParciales;
     private final ArrayList<ExamenParcial> examenesParciales;
     private final ArrayList<FormaDeEvaluacion> formasDeEvaluacion;
     private final ArrayList<Revision> historicoDeRevisiones;
@@ -100,7 +103,7 @@ public class SuiteLecturaPlanAcademia {
         examenesParciales.add(primerParcial);
         examenesParciales.add(segundoParcial);
         
-        EEConParcial ingenieriaI = new EEConParcial("Ingeniería de Software I", examenesParciales);
+        ExperienciaEducativaConParciales ingenieriaI = new ExperienciaEducativaConParciales("Ingeniería de Software I", examenesParciales);
         
         eesConParciales.add(ingenieriaI);
         
@@ -136,7 +139,7 @@ public class SuiteLecturaPlanAcademia {
         planAcademia.setProgramaEducativo("2002");
         planAcademia.setPeriodoEscolar("Febrero - Julio 2016");
         planAcademia.setNombreAcademia("Ingeniería de Software");
-        planAcademia.setNombreCoordinador("Juan Carlos Pérez Arriaga");
+        planAcademia.setNombreCoordinador("Juan Carlos Pérez");
         planAcademia.setObjetivoGeneral("Revisar programa de las EE que conforman la académia. Acordar fechas de exámenes parciales y finales. Estandarizar métodos de evaluación y ponderación de exámenes teóricos y prácticos.");
         planAcademia.setObjetivosParticulares(objetivosParticulares);
         planAcademia.setExamenesParciales(eesConParciales);
@@ -194,7 +197,7 @@ public class SuiteLecturaPlanAcademia {
     public void recuperarCantidadDeParcialesPorEE(){
         int valorEsperado = this.eesConParciales.get(0).getExamenesParciales().size();
         
-        int cantidadExamenes = planAcademiaDAO.obtenerCantidadExamenesParcialesDeEE("PLAT-2", this.eesConParciales.get(0).getExperienciaEducativa());
+        int cantidadExamenes = planAcademiaDAO.obtenerCantidadExamenesPorExperiencia("PLAT-2", this.eesConParciales.get(0).getExperienciaEducativa());
         
         assertEquals("Prueba de la cantidad de examenes de EE", valorEsperado, cantidadExamenes);
     }
@@ -203,7 +206,7 @@ public class SuiteLecturaPlanAcademia {
     public void recuperarTemasDeParcialDeEE(){
         int valorEsperado = this.eesConParciales.get(0).getExamenesParciales().get(0).getTemasDeParcial().size();
         
-        ArrayList<String> temasDeParcial = planAcademiaDAO.obtenerTemasDeParcialDeEE("PLAT-2", this.eesConParciales.get(0).getExperienciaEducativa(), 1);
+        ArrayList<String> temasDeParcial = planAcademiaDAO.obtenerTemasDeParcial("PLAT-2", this.eesConParciales.get(0).getExperienciaEducativa(), 1);
         
         assertEquals("Prueba cantidad formas evaluacion", valorEsperado, temasDeParcial.size());
         
@@ -261,16 +264,32 @@ public class SuiteLecturaPlanAcademia {
     
     @Test
     public void recuperarPlanDeCoordinador() {
+        Academico academico = new Academico();
+        AcademicoDAO academicoDAO = new AcademicoDAO();
+        academico.setNumeroPersonal(203910);
+        academico.setNombreAcademico("Juan Carlos Pérez");
+        academico.setGradoEstudios("Lic. en Ingeniería de Software");
+        academico.setRolAcademico(RolAcademico.COORDINADOR);
+        academicoDAO.guardarAcademico(academico);
+        
         int cantidadEsperada = 1;
-        ArrayList<PlanTrabajoAcademia> planesObtenidos = planAcademiaDAO.buscarPlanTrabajoByCoordinador(12345);
+        ArrayList<PlanTrabajoAcademia> planesObtenidos = planAcademiaDAO.buscarPlanTrabajoByCoordinador(203910);
         
         assertEquals("Probar obtener planes de coordinador", cantidadEsperada, planesObtenidos.size());
     }
     
     @Test
     public void recuperarPlanDeCoordinadorEnEdicion() {
+        Academico academico = new Academico();
+        AcademicoDAO academicoDAO = new AcademicoDAO();
+        academico.setNumeroPersonal(203910);
+        academico.setNombreAcademico("Juan Carlos Pérez");
+        academico.setGradoEstudios("Lic. en Ingeniería de Software");
+        academico.setRolAcademico(RolAcademico.COORDINADOR);
+        academicoDAO.guardarAcademico(academico);
+        
         int cantidadEsperada = 1;
-        ArrayList<PlanTrabajoAcademia> planesObtenidos = planAcademiaDAO.obtenerPlanesEnEdicion(12345);
+        ArrayList<PlanTrabajoAcademia> planesObtenidos = planAcademiaDAO.obtenerPlanesEnEdicion(203910);
         
         assertEquals("Probar obtener planes de coordinador", cantidadEsperada, planesObtenidos.size());
     }
